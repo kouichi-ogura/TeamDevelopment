@@ -30,13 +30,13 @@ class TableMan {
     }
 
     //    public fun GetBoard():Array{
-//        return board
-//    }
-//
-//    public fun SetBoard(board:Array){
-//        this.board = board
-//    }
-//
+    //    return board
+    //}
+    //
+    //public fun SetBoard(board:Array){
+    //    this.board = board
+    //}
+
     // Debug用途
     public fun ExportBoard(){
         for (i in 0..7) {
