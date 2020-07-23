@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 
+// githubのテストのためだけのコメント
 class MainActivity : AppCompatActivity() {
 
     private var debugValue : Int = 0
