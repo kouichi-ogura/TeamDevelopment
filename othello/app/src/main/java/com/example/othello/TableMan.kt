@@ -8,12 +8,14 @@ class TableMan {
         const val White:Int = 2
     }
 
-    var cellXnum:Int = 8  // X方向のマス数
-    var cellYnum:Int = 8  // Y方向のマス数
-    var nextTurn:Int = Black
+    private var cellXnum:Int = 8  // X方向のマス数
+    private var cellYnum:Int = 8  // Y方向のマス数
+
+    // 次の手番
+    public var nextTurn:Int = Black
 
     // 盤面
-    var board = Array(cellXnum) { IntArray(cellYnum){Empty} }
+    public var board = Array(cellXnum) { IntArray(cellYnum){Empty} }
 
     public fun Initialize( cellXnum:Int = 8, cellYnum:Int = 8 ){
         // 盤面のサイズ決定
@@ -30,23 +32,25 @@ class TableMan {
         PutStone(4, 4, Black)
     }
 
-    //public fun SetBoard(board:Array){
-    //    this.board = board
-    //}
 
-    //public fun GetBoard():Array{
+    // public fun <T> SetBoard(vararg board:T){
+    //    this.board = board
+    // }
+
+    // public fun <T> GetBoard(): Array<T>
+    // public fun GetBoard():Array{
     //    return board
-    //}
+    // }
 
     // 次の手番を設定
-    public fun SetNextTurn( nextTurn:Int ){
-        this.nextTurn = nextTurn
-    }
+    // public fun SetNextTurn( nextTurn:Int ){
+    //     this.nextTurn = nextTurn
+    // }
 
-    // 次の手番を取得
-    public fun GetNextTurn():Int{
-        return this.nextTurn
-    }
+    // // 次の手番を取得
+    // public fun GetNextTurn():Int{
+    //     return this.nextTurn
+    // }
 
     // オプション機能：任意の場所に石を置く
     public fun PutStone( cellX:Int, cellY:Int, color:Int ){
