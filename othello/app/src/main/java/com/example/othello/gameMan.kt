@@ -10,7 +10,7 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.MotionEvent
-
+import TableMan
 
 class gameMan {
 
@@ -21,7 +21,7 @@ class gameMan {
         const val boardSize = 8
     }
 
-   val boardArray = Array(boardSize) { IntArray(boardSize) }// 盤用配列
+//   val boardArray = Array(boardSize) { IntArray(boardSize) }// 盤用配列
 
     var currentturn: Int = Black // 手番保持用変数
 
@@ -31,6 +31,12 @@ class gameMan {
     private var cellXnum:Int = 8    // X方向のマス数
     private var cellYnum:Int = 8    // Y方向のマス数
 
+    private var tm = TableMan()
+
+    init {
+        tm.Initialize()
+    }
+
     public fun putStone(x:Int, y:Int): Boolean {
         //置けるかチェック
         //IsPut()
@@ -38,7 +44,7 @@ class gameMan {
     }
 
     public  fun getTable(): Array<IntArray> {
-        return boardArray
+        return tm.board
     }
 
     public fun getWhiteStoneNum(): Int {
@@ -52,31 +58,20 @@ class gameMan {
 
     // 盤用配列を初期化(初期のまっさらな盤面)
     fun clearBord() {
-        for (i in 0..7) {
-            for (k in 0..7) {
-                boardArray[i][k] = 0
-            }
-        }
+        tm.Initialize()
     }
 
     // 盤用配列を初期化(初期盤面)
     fun initBord() {
-        for (i in 0..7) {
-            for (k in 0..7) {
-                boardArray[i][k] = 0
-            }
-        }
-        boardArray[3][3] = White
-        boardArray[4][4] = White
-        boardArray[4][3] = Black
-        boardArray[3][4] = Black
+        tm.Initialize()
+        tm.InitialPlacement()
     }
 
     // 石が置かれた後の盤面を作成する
     fun makeBord(): Boolean
     {
         //すでに石が起これていいた場合は置けない
-        if (boardArray[x][y] ==White||boardArray[x][y] ==Black){
+        if (tm.board[x][y] ==White||tm.board[x][y] ==Black){
             return false
         }
 
@@ -119,7 +114,7 @@ class gameMan {
         //左に左方向にひっくり返すものがあればひっくり返す
         do{
             if(x-count >= 0) {
-                when (boardArray[x-count][y]) {
+                when (tm.board[x-count][y]) {
                     Empty -> //空白マスの場合
                     {
                         count =boardSize; //空白の場合は終了
@@ -137,7 +132,7 @@ class gameMan {
                         else
                         {
                             for (i in x..x-count){
-                                boardArray[x-i][y] = Turnstone
+                                tm.board[x-i][y] = Turnstone
                             }
 
                         }
@@ -154,7 +149,7 @@ class gameMan {
         //左上方向にひっくり返すものがあればひっくり返す
         do{
             if(x-count >= 0 &&y-count >= 0) {
-                when (boardArray[x-1][y-1]) {
+                when (tm.board[x-1][y-1]) {
                     Empty -> //空白マスの場合
                     {
                         count =boardSize; //空白の場合は終了
@@ -172,7 +167,7 @@ class gameMan {
                         else
                         {
                             for (i in x..x-count){
-                                boardArray[x-i][y-i] = Turnstone
+                                tm.board[x-i][y-i] = Turnstone
                             }
 
                         }
@@ -189,7 +184,7 @@ class gameMan {
         //上にひっくり返すものがあればひっくり返す
         do{
             if(y-count >= 0) {
-                when (boardArray[x][y-1]) {
+                when (tm.board[x][y-1]) {
                     Empty -> //空白マスの場合
                     {
                         count =boardSize; //空白の場合は終了
@@ -207,7 +202,7 @@ class gameMan {
                         else
                         {
                             for (i in x..x-count){
-                                boardArray[x][y-i] = Turnstone
+                                tm.board[x][y-i] = Turnstone
                             }
                         }
                     }
@@ -223,7 +218,7 @@ class gameMan {
         //右上にひっくり返すものがあればひっくり返す
         do{
             if(x+count < boardSize-1 &&y-count >= 0) {
-                when (boardArray[x+1][y-1]) {
+                when (tm.board[x+1][y-1]) {
                     Empty -> //空白マスの場合
                     {
                         count =boardSize; //空白の場合は終了
@@ -241,7 +236,7 @@ class gameMan {
                         else
                         {
                             for (i in x..x-count){
-                                boardArray[x+i][y-i] = Turnstone
+                                tm.board[x+i][y-i] = Turnstone
                             }
                         }
                     }
@@ -258,7 +253,7 @@ class gameMan {
         //右にひっくり返すものがあればひっくり返す
         do{
             if(x+count < boardSize-1) {
-                when (boardArray[x+1][y]) {
+                when (tm.board[x+1][y]) {
                     Empty -> //空白マスの場合
                     {
                         count =boardSize; //空白の場合は終了
@@ -276,7 +271,7 @@ class gameMan {
                         else
                         {
                             for (i in x..x-count){
-                                boardArray[x+i][y] = Turnstone
+                                tm.board[x+i][y] = Turnstone
                             }
                         }
                     }
@@ -292,7 +287,7 @@ class gameMan {
         //右下にひっくり返すものがあればひっくり返す
         do{
             if(x+count < boardSize-1 && y+count < boardSize-1) {
-                when (boardArray[x+1][y+1]) {
+                when (tm.board[x+1][y+1]) {
                     Empty -> //空白マスの場合
                     {
                         count =boardSize; //空白の場合は終了
@@ -310,7 +305,7 @@ class gameMan {
                         else
                         {
                             for (i in x..x+count){
-                                boardArray[x+1][y+1] = Turnstone
+                                tm.board[x+1][y+1] = Turnstone
                             }
 
                         }
@@ -327,7 +322,7 @@ class gameMan {
         //下にひっくり返すものがあればひっくり返す
         do{
             if(y+count < boardSize-1) {
-                when (boardArray[x][y+1]) {
+                when (tm.board[x][y+1]) {
                     Empty -> //空白マスの場合
                     {
                         count =boardSize; //空白の場合は終了
@@ -345,7 +340,7 @@ class gameMan {
                         else
                         {
                             for (i in x..x+count){
-                                boardArray[x][y+i] = Turnstone
+                                tm.board[x][y+i] = Turnstone
                             }
 
                         }
@@ -362,7 +357,7 @@ class gameMan {
         //左下にひっくり返すものがあればひっくり返す
         do{
             if(x-count >= 0) {
-                when (boardArray[x-1][y+1]) {
+                when (tm.board[x-1][y+1]) {
                     Empty -> //空白マスの場合
                     {
                         count =boardSize; //空白の場合は終了
@@ -380,7 +375,7 @@ class gameMan {
                         else
                         {
                             for (i in x..x+count){
-                                boardArray[x-i][y+i] = Turnstone
+                                tm.board[x-i][y+i] = Turnstone
                             }
 
                         }
