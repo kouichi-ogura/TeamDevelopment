@@ -28,6 +28,28 @@ class gameMan {
     var x: Int = 1 // 取得したx座標
     var y: Int = 1 // 取得したy座標
 
+    private var cellXnum:Int = 8    // X方向のマス数
+    private var cellYnum:Int = 8    // Y方向のマス数
+
+    public fun putStone(x:Int, y:Int): Boolean {
+        //置けるかチェック
+        //IsPut()
+        return true
+    }
+
+    public  fun getTable(): Array<IntArray> {
+        return boardArray
+    }
+
+    public fun getWhiteStoneNum(): Int {
+        return 10
+    }
+
+    public fun getBlackStoneNum(): Int {
+        return 20
+    }
+
+
     // 盤用配列を初期化(初期のまっさらな盤面)
     fun clearBord() {
         for (i in 0..7) {
