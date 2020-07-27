@@ -6,7 +6,14 @@ import android.graphics.Color
 import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+<<<<<<< HEAD
 import android.util.DisplayMetrics
+=======
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+>>>>>>> d72dfabaf2db6b73ceb0fa9d5281f2a67ce17318
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
@@ -21,6 +28,10 @@ class MainActivity : AppCompatActivity() {
 
     //マスの状態 [0:空き、1:黒、2:白]
     var territory = Array(squareNum) {IntArray(squareNum)}
+<<<<<<< HEAD
+=======
+//    var territory = Array(squareNum) {IntArray(squareNum){1}}
+>>>>>>> d72dfabaf2db6b73ceb0fa9d5281f2a67ce17318
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +62,7 @@ class MainActivity : AppCompatActivity() {
     // Viewを継承したクラス
     internal inner class MyView(context: Context) : View(context) {
 
+<<<<<<< HEAD
         private val dm = DisplayMetrics()
 
         init {
@@ -62,14 +74,25 @@ class MainActivity : AppCompatActivity() {
         private val displayWidth    = dm.widthPixels
         private val displayHeight   = dm.heightPixels
 
+=======
+        init {
+        }
+
+>>>>>>> d72dfabaf2db6b73ceb0fa9d5281f2a67ce17318
         private var paint: Paint = Paint()
 
         // 描画するラインの太さ
         private val lineStrokeWidth = 10f
         private val startXPos       = 10f
         private val startYPos       = 10f
+<<<<<<< HEAD
         private val endXPos         = displayWidth - startXPos
         private val endYPos         = displayWidth - startYPos
+=======
+        private val endXPos         = 650f
+        private val endYPos         = 650f
+        private val lineInterval    = 80
+>>>>>>> d72dfabaf2db6b73ceb0fa9d5281f2a67ce17318
         private val squareNum       = 8
 
         var cellX : Int     = 0
@@ -116,7 +139,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             // タップ位置が盤面内ならタップ位置を座標に変換して保持
+<<<<<<< HEAD
             if ((touchX >= startXPos.toInt() && touchX <= endXPos.toInt()) && (touchY >= startYPos.toInt() && touchY <= endYPos.toInt())) {
+=======
+            if ((touchX >= startXPos.toInt() && touchX <= endXPos.toInt()) &&
+                (touchY >= startYPos.toInt() && touchY <= endYPos.toInt())) {
+>>>>>>> d72dfabaf2db6b73ceb0fa9d5281f2a67ce17318
                 val twoPoint: FloatArray = floatArrayOf(startXPos, startYPos, endXPos, endYPos)
                 changePosToCoodinate(twoPoint, squareNum, touchX, touchY)
             }
@@ -162,9 +190,19 @@ class MainActivity : AppCompatActivity() {
             var r : Float = (areaSize/2)*0.7f
 
             when(state) {
+<<<<<<< HEAD
                 0 -> {}
                 1 -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2, offset + cellY*areaSize + areaSize/2, r, paintBlackPiece)
                 2 -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2, offset + cellY*areaSize + areaSize/2, r, paintWhitePiece)
+=======
+                //空マス
+                0 -> {}
+                //黒コマ
+                1 -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2, offset + cellY*areaSize + areaSize/2, r, paintBlackPiece)
+                //白コマ
+                2 -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2, offset + cellY*areaSize + areaSize/2, r, paintWhitePiece)
+                //
+>>>>>>> d72dfabaf2db6b73ceb0fa9d5281f2a67ce17318
                 else -> {}
             }
         }
@@ -198,6 +236,7 @@ class MainActivity : AppCompatActivity() {
             //forDebug,
             drawScore(cellX, cellY)
         }
+<<<<<<< HEAD
     }
 
 
@@ -242,6 +281,52 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+=======
+    }
+
+
+    /*
+    //コマ描画
+    fun drawPiece(cellX : Int, cellY : Int){
+    }
+    */
+
+    //スコア描画
+    fun drawScore(whiteScore : Int, blackScore:Int){
+        findViewById<TextView>(R.id.whiteScoreView).text = "○：${whiteScore}個"
+        findViewById<TextView>(R.id.blackScoreView).text = "●：${blackScore}個"
+    }
+
+    //メッセージ描画
+    fun drawMsg(msg : String){
+        findViewById<TextView>(R.id.msgView).text = msg
+    }
+
+    //タッチイベント
+    override fun onTouchEvent(event: MotionEvent) :Boolean {
+
+        when(event.action){
+            /*
+            MotionEvent.ACTION_DOWN -> {
+                //スコア描画テスト
+               //drawScore(event.getX().toInt(), event.getY().toInt())
+            }
+            */
+
+            MotionEvent.ACTION_UP -> {
+                //メッセージ描画テスト
+                if(debugValue%2==1)
+                    drawMsg(" 黒の番です")
+                else
+                    drawMsg(" 白の番です")
+                debugValue++
+            }
+        }
+        return super.onTouchEvent(event)
+    }
+
+
+>>>>>>> d72dfabaf2db6b73ceb0fa9d5281f2a67ce17318
 
 
 }
