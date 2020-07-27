@@ -6,13 +6,13 @@ import android.graphics.Color
 import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 
-// githubのテストのためだけのコメント
 class MainActivity : AppCompatActivity() {
 
     private var debugValue : Int = 0
@@ -51,8 +51,16 @@ class MainActivity : AppCompatActivity() {
     // Viewを継承したクラス
     internal inner class MyView(context: Context) : View(context) {
 
+        private val dm = DisplayMetrics()
+
         init {
+            // 画面下のボタンエリアを含めない画面サイズを取得
+            windowManager.defaultDisplay.getRealMetrics(dm)
         }
+
+        // 画面サイズは幅高どちらも求めるが、幅のほうが短いという前提のもと、以降は幅しか使用しない
+        private val displayWidth    = dm.widthPixels
+        private val displayHeight   = dm.heightPixels
 
         private var paint: Paint = Paint()
 
@@ -60,9 +68,8 @@ class MainActivity : AppCompatActivity() {
         private val lineStrokeWidth = 10f
         private val startXPos       = 10f
         private val startYPos       = 10f
-        private val endXPos         = 650f
-        private val endYPos         = 650f
-        private val lineInterval    = 80
+        private val endXPos         = displayWidth - startXPos
+        private val endYPos         = displayWidth - startYPos
         private val squareNum       = 8
 
         var cellX : Int     = 0
