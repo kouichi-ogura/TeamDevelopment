@@ -6,10 +6,11 @@ class TableMan {
         const val Empty:Int = 0
         const val Black:Int = 1
         const val White:Int = 2
+        const val Blue:Int = 3  // 置ける場所のガイド用
     }
 
-    private var cellXnum:Int = 8  // X方向のマス数
-    private var cellYnum:Int = 8  // Y方向のマス数
+    private var cellXnum:Int = 8    // X方向のマス数
+    private var cellYnum:Int = 8    // Y方向のマス数
 
     // 次の手番
     public var nextTurn:Int = Black
@@ -25,13 +26,15 @@ class TableMan {
         // 盤面の初期化
         this.board = Array(cellXnum) {IntArray(cellYnum){Empty}}
 
+    }
+
+    public fun InitialPlacement() {
         // 初期配置
         PutStone(3, 3, Black)
         PutStone(3, 4, White)
         PutStone(4, 3, White)
         PutStone(4, 4, Black)
     }
-
 
     // public fun <T> SetBoard(vararg board:T){
     //    this.board = board
