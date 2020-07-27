@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     //マスの状態 [0:空き、1:黒、2:白]
     var territory = Array(squareNum) {IntArray(squareNum)}
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -116,7 +115,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             // タップ位置が盤面内ならタップ位置を座標に変換して保持
-            if ((touchX >= startXPos.toInt() && touchX <= endXPos.toInt()) && (touchY >= startYPos.toInt() && touchY <= endYPos.toInt())) {
+            if ((touchX >= startXPos.toInt() && touchX <= endXPos.toInt()) &&
+                (touchY >= startYPos.toInt() && touchY <= endYPos.toInt())) {
                 val twoPoint: FloatArray = floatArrayOf(startXPos, startYPos, endXPos, endYPos)
                 changePosToCoodinate(twoPoint, squareNum, touchX, touchY)
             }
@@ -162,9 +162,15 @@ class MainActivity : AppCompatActivity() {
             var r : Float = (areaSize/2)*0.7f
 
             when(state) {
+                //空マス
                 0 -> {}
-                1 -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2, offset + cellY*areaSize + areaSize/2, r, paintBlackPiece)
-                2 -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2, offset + cellY*areaSize + areaSize/2, r, paintWhitePiece)
+                //黒コマ
+                1 -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
+                                        offset + cellY*areaSize + areaSize/2, r, paintBlackPiece)
+                //白コマ
+                2 -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
+                                        offset + cellY*areaSize + areaSize/2, r, paintWhitePiece)
+                //
                 else -> {}
             }
         }
@@ -240,8 +246,5 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onTouchEvent(event)
     }
-
-
-
 
 }
