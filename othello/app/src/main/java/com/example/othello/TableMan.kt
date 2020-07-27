@@ -53,8 +53,20 @@ class TableMan {
     // }
 
     // オプション機能：任意の場所に石を置く
-    public fun PutStone( cellX:Int, cellY:Int, color:Int ){
+    public fun PutStone( cellX:Int, cellY:Int, color:Int ):Boolean{
+        if ( cellXnum <= cellX ) return false
+        if ( cellYnum <= cellY ) return false
+
         this.board[cellX][cellY] = color
+        return true
+    }
+
+    public fun PutStoneWhite( cellX:Int, cellY:Int ):Boolean{
+        return PutStone(cellX, cellY, White)
+    }
+
+    public fun PutStoneBlack( cellX:Int, cellY:Int ):Boolean{
+        return PutStone(cellX, cellY, Black)
     }
 
     // Debug用途
