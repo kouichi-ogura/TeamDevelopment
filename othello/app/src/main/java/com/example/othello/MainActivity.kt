@@ -165,9 +165,11 @@ class MainActivity : AppCompatActivity() {
                 //空マス
                 0 -> {}
                 //黒コマ
-                1 -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2, offset + cellY*areaSize + areaSize/2, r, paintBlackPiece)
+                1 -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
+                                        offset + cellY*areaSize + areaSize/2, r, paintBlackPiece)
                 //白コマ
-                2 -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2, offset + cellY*areaSize + areaSize/2, r, paintWhitePiece)
+                2 -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
+                                        offset + cellY*areaSize + areaSize/2, r, paintWhitePiece)
                 //
                 else -> {}
             }
