@@ -69,17 +69,6 @@ class TableMan {
         return PutStone(cellX, cellY, Black)
     }
 
-<<<<<<< HEAD
-=======
-    //    public fun GetBoard():Array{
-    //    return board
-    //}
-    //
-    //public fun SetBoard(board:Array){
-    //    this.board = board
-    //}
-
->>>>>>> d72dfabaf2db6b73ceb0fa9d5281f2a67ce17318
     // Debug用途
     public fun ExportBoard(){
         for (i in 0..7) {

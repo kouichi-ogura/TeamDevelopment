@@ -28,11 +28,6 @@ class gameMan {
     var x: Int = 1 // 取得したx座標
     var y: Int = 1 // 取得したy座標
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> d72dfabaf2db6b73ceb0fa9d5281f2a67ce17318
     // 盤用配列を初期化(初期のまっさらな盤面)
     fun clearBord() {
         for (i in 0..7) {
@@ -69,23 +64,17 @@ class gameMan {
             return false
         }
 
-<<<<<<< HEAD
         // 相手が石が置けるかチェック
 
-=======
->>>>>>> d72dfabaf2db6b73ceb0fa9d5281f2a67ce17318
         // 石が置かれた場合手番を入れ替える
         if(currentturn == Black)
         {
             currentturn = White
         }
 
-<<<<<<< HEAD
         // ゲーム終了かチェック
 
 
-=======
->>>>>>> d72dfabaf2db6b73ceb0fa9d5281f2a67ce17318
         return true
     }
 
@@ -93,13 +82,8 @@ class gameMan {
     {
         var count: Int = 0
 
-<<<<<<< HEAD
         var Oppstone: Int = 0 // 現在の手番
         var Turnstone: Int = 0 // 相手の手番
-=======
-        var Oppstone: Int = 0 // 現在の手番の石
-        var Turnstone: Int = 0 // 相手の手番の石
->>>>>>> d72dfabaf2db6b73ceb0fa9d5281f2a67ce17318
 
         if (currentturn == Black){
             Turnstone = Black
@@ -113,11 +97,7 @@ class gameMan {
         //左に左方向にひっくり返すものがあればひっくり返す
         do{
             if(x-count >= 0) {
-<<<<<<< HEAD
                 when (boardArray[x-count][y]) {
-=======
-                when (boardArray[x-1][y]) {
->>>>>>> d72dfabaf2db6b73ceb0fa9d5281f2a67ce17318
                     Empty -> //空白マスの場合
                     {
                         count =boardSize; //空白の場合は終了
@@ -130,11 +110,7 @@ class gameMan {
                     {
                         if (count == 0)
                         {
-<<<<<<< HEAD
                             count =boardSize; //右に石がある場合強制終了
-=======
-                            count =boardSize; //相手自分の石がある場合強制終了
->>>>>>> d72dfabaf2db6b73ceb0fa9d5281f2a67ce17318
                         }
                         else
                         {
