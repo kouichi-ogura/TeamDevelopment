@@ -12,21 +12,16 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.example.othello.common.Companion.BOARD_SIZE
-import com.example.othello.common.Companion.CELL_BLACK
-import com.example.othello.common.Companion.CELL_EMPTY
-import com.example.othello.common.Companion.CELL_WHITE
 
 class MainActivity : AppCompatActivity() {
 
     //GameManager
     private var gameManager : GameMan = GameMan()
 
+    //盤面サイズ
+    private val squareNum       = common.BOARD_SIZE
     //手番表示用
     private var nextTurn : Int = common.CELL_EMPTY
-
-    //盤面サイズ
-    private val squareNum       = BOARD_SIZE
 
     //マスの状態 [CELL_ENPTY:空き、CELL_BLACK:黒、CELL_WHITE:白]
     var territory = Array(squareNum) {IntArray(squareNum)}
@@ -75,7 +70,6 @@ class MainActivity : AppCompatActivity() {
         private var paint: Paint = Paint()
 
         // 描画するラインの太さ
-        private val lineStrokeWidth = 10f
         private val startXPos       = 10f
         private val startYPos       = 10f
         private val endXPos         = displayWidth - startXPos
@@ -175,12 +169,12 @@ class MainActivity : AppCompatActivity() {
 
             when(state) {
                 //空マス
-                CELL_EMPTY -> {}
+                common.CELL_EMPTY -> {}
                 //黒コマ
-                CELL_BLACK -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
+                common.CELL_BLACK -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
                                         offset + cellY*areaSize + areaSize/2, r, paintBlackPiece)
                 //白コマ
-                CELL_WHITE -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
+                common.CELL_WHITE -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
                                         offset + cellY*areaSize + areaSize/2, r, paintWhitePiece)
                 //
                 else -> {}
