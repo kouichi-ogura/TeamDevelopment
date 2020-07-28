@@ -24,7 +24,7 @@ class GameMan {
 
 //   val boardArray = Array(boardSize) { IntArray(boardSize) }// 盤用配列
 
-    var currentturn: Int = Black // 手番保持用変数
+    var currentturn: Int = common.CELL_BLACK // 手番保持用変数
 
     var x: Int = 1 // 取得したx座標
     var y: Int = 1 // 取得したy座標
@@ -48,12 +48,11 @@ class GameMan {
 
         // TODO:次の手番判定
         // 下記は暫定処理
-        if  (currentturn == Black){
-            currentturn == White
+        if  (currentturn == common.CELL_BLACK){
+            currentturn == common.CELL_WHITE
         }else{
-            currentturn == Black
+            currentturn == common.CELL_BLACK
         }
-
         return true
     }
 
@@ -62,11 +61,11 @@ class GameMan {
     }
 
     public fun getWhiteStoneNum(): Int {
-        return tm.CountStone(White)
+        return tm.CountStone(common.CELL_WHITE)
     }
 
     public fun getBlackStoneNum(): Int {
-        return tm.CountStone(Black)
+        return tm.CountStone(common.CELL_BLACK)
     }
 
     public fun getNextTurn(): Int {
