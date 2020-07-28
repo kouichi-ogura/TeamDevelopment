@@ -37,11 +37,16 @@ class MainActivity : AppCompatActivity() {
             //drawMsg("Startボタン押下")
             drawMsg("黒の番です")
             //初期化
-//            territory = Array(squareNum) {IntArray(squareNum)}
             gameManager.initBoard()
             territory = gameManager.getTable()
+            drawScore(gameManager.getWhiteStoneNum(), gameManager.getBlackStoneNum())
             nextTurn = gameManager.getNextTurn()
             myView.invalidate()
+            //メッセージ描画
+            if(nextTurn==common.CELL_BLACK)
+                drawMsg(" 黒の番です")
+            else
+                drawMsg(" 白の番です")
         }
 
         //「終了」ボタン押下
@@ -99,7 +104,8 @@ class MainActivity : AppCompatActivity() {
             //コマ描画
             for(y in 0 until squareNum){
                 for(x in 0 until squareNum){
-                    drawPiece(canvas, territory[y][x], y, x)
+//                    drawPiece(canvas, territory[y][x], y, x)
+                    drawPiece(canvas, territory[x][y], y, x)
                 }
             }
         }
@@ -128,6 +134,11 @@ class MainActivity : AppCompatActivity() {
                 territory = gameManager.getTable()
                 drawScore(gameManager.getWhiteStoneNum(), gameManager.getBlackStoneNum())
                 nextTurn = gameManager.getNextTurn()
+                //メッセージ描画
+                if(nextTurn==common.CELL_BLACK)
+                    drawMsg(" 黒の番です")
+                else
+                    drawMsg(" 白の番です")
             }
             invalidate()
 
