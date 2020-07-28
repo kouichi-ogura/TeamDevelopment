@@ -22,8 +22,6 @@ class GameMan {
         const val boardSize = 8
     }
 
-//   val boardArray = Array(boardSize) { IntArray(boardSize) }// 盤用配列
-
     var currentturn: Int = common.CELL_BLACK // 手番保持用変数
 
     var x: Int = 1 // 取得したx座標
@@ -49,9 +47,9 @@ class GameMan {
         // TODO:次の手番判定
         // 下記は暫定処理
         if  (currentturn == common.CELL_BLACK){
-            currentturn == common.CELL_WHITE
+            currentturn = common.CELL_WHITE
         }else{
-            currentturn == common.CELL_BLACK
+            currentturn = common.CELL_BLACK
         }
         return true
     }
