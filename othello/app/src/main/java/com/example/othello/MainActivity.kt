@@ -12,21 +12,14 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.example.othello.common.Companion.BOARD_SIZE
-import com.example.othello.common.Companion.CELL_BLACK
-import com.example.othello.common.Companion.CELL_EMPTY
-import com.example.othello.common.Companion.CELL_WHITE
 
 class MainActivity : AppCompatActivity() {
 
     //GameManager
     private var gameManager : GameMan = GameMan()
 
-    //手番表示用
-    private var nextTurn : Int = common.CELL_EMPTY
-
     //盤面サイズ
-    private val squareNum       = BOARD_SIZE
+    private val squareNum : Int = common.BOARD_SIZE
 
     //マスの状態 [CELL_ENPTY:空き、CELL_BLACK:黒、CELL_WHITE:白]
     var territory = Array(squareNum) {IntArray(squareNum)}
@@ -35,23 +28,31 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //初期化
+        gameManager.initBoard()
+        territory = gameManager.getTable()
+        drawScore(gameManager.getWhiteStoneNum(), gameManager.getBlackStoneNum())
+
+        //手番描画
+        drawTurn(gameManager.getNextTurn())
+
         var myView = MyView(this)
 
-        //「開始」ボタン押下
-        findViewById<Button>(R.id.startButton).setOnClickListener{
-            //drawMsg("Startボタン押下")
-            drawMsg("黒の番です")
+        //「リセット」ボタン押下
+        findViewById<Button>(R.id.resetButton).setOnClickListener{
             //初期化
-//            territory = Array(squareNum) {IntArray(squareNum)}
             gameManager.initBoard()
             territory = gameManager.getTable()
-            nextTurn = gameManager.getNextTurn()
+            drawScore(gameManager.getWhiteStoneNum(), gameManager.getBlackStoneNum())
+
             myView.invalidate()
+
+            //手番描画
+            drawTurn(gameManager.getNextTurn())
         }
 
         //「終了」ボタン押下
         findViewById<Button>(R.id.endButton).setOnClickListener{
-            drawMsg("終了ボタン押下")
             finishAndRemoveTask()
         }
 
@@ -68,19 +69,20 @@ class MainActivity : AppCompatActivity() {
             windowManager.defaultDisplay.getRealMetrics(dm)
         }
 
-        // 画面サイズは幅高どちらも求めるが、幅のほうが短いという前提のもと、以降は幅しか使用しない
+        // 画面サイズ
+        // 幅高どちらも求めるが、幅のほうが短いという前提のもと、以降は幅しか使用しない
         private val displayWidth    = dm.widthPixels
         private val displayHeight   = dm.heightPixels
 
         private var paint: Paint = Paint()
 
-        // 描画するラインの太さ
-        private val lineStrokeWidth = 10f
+        // 描画するラインの開始/終了位置
         private val startXPos       = 10f
         private val startYPos       = 10f
         private val endXPos         = displayWidth - startXPos
         private val endYPos         = displayWidth - startYPos
 
+        // タップされたセルのX/Y位置
         var cellX : Int     = 0
         var cellY : Int     = 0
 
@@ -105,7 +107,8 @@ class MainActivity : AppCompatActivity() {
             //コマ描画
             for(y in 0 until squareNum){
                 for(x in 0 until squareNum){
-                    drawPiece(canvas, territory[y][x], y, x)
+//                    drawPiece(canvas, territory[y][x], y, x)
+                    drawPiece(canvas, territory[x][y], y, x)
                 }
             }
         }
@@ -129,11 +132,12 @@ class MainActivity : AppCompatActivity() {
                 changePosToCoodinate(twoPoint, squareNum, touchX, touchY)
             }
 
-            //forDebug, タップしたセルにコマを置く,
+            //タップしたセルにコマを置く,
             if(gameManager.putStone(cellX, cellY)){
                 territory = gameManager.getTable()
                 drawScore(gameManager.getWhiteStoneNum(), gameManager.getBlackStoneNum())
-                nextTurn = gameManager.getNextTurn()
+                //手番描画
+                drawTurn(gameManager.getNextTurn())
             }
             invalidate()
 
@@ -141,7 +145,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //コマ描画
-        // State   : 0:空きマス, 1:Black, 2:White,
+        // State   : [CELL_EMPTY, CELL_BLACK, CELL_WHITE],
         // CellY/X : マス位置, 左上[0,0]～右下[7,7],
         fun drawPiece(canvas: Canvas, state : Int, cellY : Int, cellX : Int){
             var paintBlackPiece: Paint = Paint()
@@ -175,12 +179,12 @@ class MainActivity : AppCompatActivity() {
 
             when(state) {
                 //空マス
-                CELL_EMPTY -> {}
+                common.CELL_EMPTY -> {}
                 //黒コマ
-                CELL_BLACK -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
+                common.CELL_BLACK -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
                                         offset + cellY*areaSize + areaSize/2, r, paintBlackPiece)
                 //白コマ
-                CELL_WHITE -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
+                common.CELL_WHITE -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
                                         offset + cellY*areaSize + areaSize/2, r, paintWhitePiece)
                 //
                 else -> {}
@@ -210,9 +214,6 @@ class MainActivity : AppCompatActivity() {
             //     つまり、盤面内のちょうど線上をタップした場合、Xは線の右マス、Yは線の下マスとする
             cellX = ((touchX - twoPoint[0]) / ((twoPoint[2] - twoPoint[0]) / squareNum)).toInt()
             cellY = ((touchY - twoPoint[1]) / ((twoPoint[2] - twoPoint[0]) / squareNum)).toInt()
-
-            //forDebug,
-//            drawScore(cellX, cellY)
         }
     }
 
@@ -227,25 +228,22 @@ class MainActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.msgView).text = msg
     }
 
+    //手番描画
+    fun drawTurn(turn : Int){
+        if(turn == common.CELL_BLACK)
+            drawMsg(" 黒の番です")
+        else
+            drawMsg(" 白の番です")
+    }
+
     //タッチイベント
     override fun onTouchEvent(event: MotionEvent) :Boolean {
 
         when(event.action){
             /*
             MotionEvent.ACTION_DOWN -> {
-                //スコア描画テスト
-               //drawScore(event.getX().toInt(), event.getY().toInt())
             }
-            */
-
-            /*
             MotionEvent.ACTION_UP -> {
-                //メッセージ描画テスト
-                if(debugValue%2==1)
-                    drawMsg(" 黒の番です")
-                else
-                    drawMsg(" 白の番です")
-                debugValue++
             }
             */
         }
