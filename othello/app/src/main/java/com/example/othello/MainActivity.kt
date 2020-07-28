@@ -69,18 +69,20 @@ class MainActivity : AppCompatActivity() {
             windowManager.defaultDisplay.getRealMetrics(dm)
         }
 
-        // 画面サイズは幅高どちらも求めるが、幅のほうが短いという前提のもと、以降は幅しか使用しない
+        // 画面サイズ
+        // 幅高どちらも求めるが、幅のほうが短いという前提のもと、以降は幅しか使用しない
         private val displayWidth    = dm.widthPixels
         private val displayHeight   = dm.heightPixels
 
         private var paint: Paint = Paint()
 
-        // 描画するラインの太さ
+        // 描画するラインの開始/終了位置
         private val startXPos       = 10f
         private val startYPos       = 10f
         private val endXPos         = displayWidth - startXPos
         private val endYPos         = displayWidth - startYPos
 
+        // タップされたセルのX/Y位置
         var cellX : Int     = 0
         var cellY : Int     = 0
 
