@@ -1,4 +1,5 @@
-package com.example.myapplication
+package com.example.othello
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Context
@@ -10,9 +11,9 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.MotionEvent
-import TableMan
+//import TableMan
 
-class gameMan {
+class GameMan {
 
     companion object {
         const val Empty = 0
@@ -21,9 +22,7 @@ class gameMan {
         const val boardSize = 8
     }
 
-//   val boardArray = Array(boardSize) { IntArray(boardSize) }// 盤用配列
-
-    var currentturn: Int = Black // 手番保持用変数
+    var currentturn: Int = common.CELL_BLACK // 手番保持用変数
 
     var x: Int = 1 // 取得したx座標
     var y: Int = 1 // 取得したy座標
@@ -38,8 +37,20 @@ class gameMan {
     }
 
     public fun putStone(x:Int, y:Int): Boolean {
-        //置けるかチェック
+        //TODO:置けるかチェック
         //IsPut()
+        //  return false
+
+        // 置けるならテーブル更新
+        tm.PutStone(x, y, currentturn)
+
+        // TODO:次の手番判定
+        // 下記は暫定処理
+        if  (currentturn == common.CELL_BLACK){
+            currentturn = common.CELL_WHITE
+        }else{
+            currentturn = common.CELL_BLACK
+        }
         return true
     }
 
@@ -48,27 +59,30 @@ class gameMan {
     }
 
     public fun getWhiteStoneNum(): Int {
-        return 10
+        return tm.CountStone(common.CELL_WHITE)
     }
 
     public fun getBlackStoneNum(): Int {
-        return 20
+        return tm.CountStone(common.CELL_BLACK)
     }
 
+    public fun getNextTurn(): Int {
+        return currentturn
+    }
 
     // 盤用配列を初期化(初期のまっさらな盤面)
-    fun clearBord() {
-        tm.Initialize()
-    }
+    //fun clearBoard() {
+    //    tm.Initialize()
+    //}
 
     // 盤用配列を初期化(初期盤面)
-    fun initBord() {
+    fun initBoard() {
         tm.Initialize()
         tm.InitialPlacement()
     }
 
     // 石が置かれた後の盤面を作成する
-    fun makeBord(): Boolean
+    fun makeBoard(): Boolean
     {
         //すでに石が起これていいた場合は置けない
         if (tm.board[x][y] ==White||tm.board[x][y] ==Black){
