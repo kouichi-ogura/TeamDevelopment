@@ -1,4 +1,5 @@
-package com.example.myapplication
+package com.example.othello
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Context
@@ -10,9 +11,9 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.MotionEvent
-import TableMan
+//import TableMan
 
-class gameMan {
+class GameMan {
 
     companion object {
         const val Empty = 0
@@ -38,8 +39,21 @@ class gameMan {
     }
 
     public fun putStone(x:Int, y:Int): Boolean {
-        //置けるかチェック
+        //TODO:置けるかチェック
         //IsPut()
+        //  return false
+
+        // 置けるならテーブル更新
+        tm.PutStone(x, y, currentturn)
+
+        // TODO:次の手番判定
+        // 下記は暫定処理
+        if  (currentturn == Black){
+            currentturn == White
+        }else{
+            currentturn == Black
+        }
+
         return true
     }
 
@@ -57,18 +71,18 @@ class gameMan {
 
 
     // 盤用配列を初期化(初期のまっさらな盤面)
-    fun clearBord() {
-        tm.Initialize()
-    }
+    //fun clearBoard() {
+    //    tm.Initialize()
+    //}
 
     // 盤用配列を初期化(初期盤面)
-    fun initBord() {
+    fun initBoard() {
         tm.Initialize()
         tm.InitialPlacement()
     }
 
     // 石が置かれた後の盤面を作成する
-    fun makeBord(): Boolean
+    fun makeBoard(): Boolean
     {
         //すでに石が起これていいた場合は置けない
         if (tm.board[x][y] ==White||tm.board[x][y] ==Black){
