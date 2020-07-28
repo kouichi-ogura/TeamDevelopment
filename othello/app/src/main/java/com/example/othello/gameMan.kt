@@ -62,13 +62,16 @@ class GameMan {
     }
 
     public fun getWhiteStoneNum(): Int {
-        return 10
+        return tm.CountStone(White)
     }
 
     public fun getBlackStoneNum(): Int {
-        return 20
+        return tm.CountStone(Black)
     }
 
+    public fun getNextTurn(): Int {
+        return currentturn
+    }
 
     // 盤用配列を初期化(初期のまっさらな盤面)
     //fun clearBoard() {
