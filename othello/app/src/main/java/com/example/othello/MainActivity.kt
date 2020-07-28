@@ -12,16 +12,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.example.othello.common.Companion.BOARD_SIZE
-import com.example.othello.common.Companion.CELL_BLACK
-import com.example.othello.common.Companion.CELL_EMPTY
-import com.example.othello.common.Companion.CELL_WHITE
 
 class MainActivity : AppCompatActivity() {
 
     private var debugValue : Int = 0
 
-    private val squareNum       = BOARD_SIZE
+    private val squareNum       = common.BOARD_SIZE
 
     //マスの状態 [0:空き、1:黒、2:白]
     var territory = Array(squareNum) {IntArray(squareNum)}
@@ -68,7 +64,6 @@ class MainActivity : AppCompatActivity() {
         private var paint: Paint = Paint()
 
         // 描画するラインの太さ
-        private val lineStrokeWidth = 10f
         private val startXPos       = 10f
         private val startYPos       = 10f
         private val endXPos         = displayWidth - startXPos
@@ -164,12 +159,12 @@ class MainActivity : AppCompatActivity() {
 
             when(state) {
                 //空マス
-                CELL_EMPTY -> {}
+                common.CELL_EMPTY -> {}
                 //黒コマ
-                CELL_BLACK -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
+                common.CELL_BLACK -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
                                         offset + cellY*areaSize + areaSize/2, r, paintBlackPiece)
                 //白コマ
-                CELL_WHITE -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
+                common.CELL_WHITE -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
                                         offset + cellY*areaSize + areaSize/2, r, paintWhitePiece)
                 //
                 else -> {}
