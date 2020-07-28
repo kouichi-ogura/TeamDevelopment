@@ -19,9 +19,7 @@ class MainActivity : AppCompatActivity() {
     private var gameManager : GameMan = GameMan()
 
     //盤面サイズ
-    private val squareNum       = common.BOARD_SIZE
-    //手番表示用
-    private var nextTurn : Int = common.CELL_EMPTY
+    private val squareNum : Int = common.BOARD_SIZE
 
     //マスの状態 [CELL_ENPTY:空き、CELL_BLACK:黒、CELL_WHITE:白]
     var territory = Array(squareNum) {IntArray(squareNum)}
@@ -30,28 +28,31 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //初期化
+        gameManager.initBoard()
+        territory = gameManager.getTable()
+        drawScore(gameManager.getWhiteStoneNum(), gameManager.getBlackStoneNum())
+
+        //手番描画
+        drawTurn(gameManager.getNextTurn())
+
         var myView = MyView(this)
 
-        //「開始」ボタン押下
-        findViewById<Button>(R.id.startButton).setOnClickListener{
-            //drawMsg("Startボタン押下")
-            drawMsg("黒の番です")
+        //「リセット」ボタン押下
+        findViewById<Button>(R.id.resetButton).setOnClickListener{
             //初期化
             gameManager.initBoard()
             territory = gameManager.getTable()
             drawScore(gameManager.getWhiteStoneNum(), gameManager.getBlackStoneNum())
-            nextTurn = gameManager.getNextTurn()
+
             myView.invalidate()
-            //メッセージ描画
-            if(nextTurn==common.CELL_BLACK)
-                drawMsg(" 黒の番です")
-            else
-                drawMsg(" 白の番です")
+
+            //手番描画
+            drawTurn(gameManager.getNextTurn())
         }
 
         //「終了」ボタン押下
         findViewById<Button>(R.id.endButton).setOnClickListener{
-            drawMsg("終了ボタン押下")
             finishAndRemoveTask()
         }
 
@@ -129,16 +130,12 @@ class MainActivity : AppCompatActivity() {
                 changePosToCoodinate(twoPoint, squareNum, touchX, touchY)
             }
 
-            //forDebug, タップしたセルにコマを置く,
+            //タップしたセルにコマを置く,
             if(gameManager.putStone(cellX, cellY)){
                 territory = gameManager.getTable()
                 drawScore(gameManager.getWhiteStoneNum(), gameManager.getBlackStoneNum())
-                nextTurn = gameManager.getNextTurn()
-                //メッセージ描画
-                if(nextTurn==common.CELL_BLACK)
-                    drawMsg(" 黒の番です")
-                else
-                    drawMsg(" 白の番です")
+                //手番描画
+                drawTurn(gameManager.getNextTurn())
             }
             invalidate()
 
@@ -146,7 +143,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //コマ描画
-        // State   : 0:空きマス, 1:Black, 2:White,
+        // State   : [CELL_EMPTY, CELL_BLACK, CELL_WHITE],
         // CellY/X : マス位置, 左上[0,0]～右下[7,7],
         fun drawPiece(canvas: Canvas, state : Int, cellY : Int, cellX : Int){
             var paintBlackPiece: Paint = Paint()
@@ -215,9 +212,6 @@ class MainActivity : AppCompatActivity() {
             //     つまり、盤面内のちょうど線上をタップした場合、Xは線の右マス、Yは線の下マスとする
             cellX = ((touchX - twoPoint[0]) / ((twoPoint[2] - twoPoint[0]) / squareNum)).toInt()
             cellY = ((touchY - twoPoint[1]) / ((twoPoint[2] - twoPoint[0]) / squareNum)).toInt()
-
-            //forDebug,
-//            drawScore(cellX, cellY)
         }
     }
 
@@ -232,25 +226,22 @@ class MainActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.msgView).text = msg
     }
 
+    //手番描画
+    fun drawTurn(turn : Int){
+        if(turn == common.CELL_BLACK)
+            drawMsg(" 黒の番です")
+        else
+            drawMsg(" 白の番です")
+    }
+
     //タッチイベント
     override fun onTouchEvent(event: MotionEvent) :Boolean {
 
         when(event.action){
             /*
             MotionEvent.ACTION_DOWN -> {
-                //スコア描画テスト
-               //drawScore(event.getX().toInt(), event.getY().toInt())
             }
-            */
-
-            /*
             MotionEvent.ACTION_UP -> {
-                //メッセージ描画テスト
-                if(debugValue%2==1)
-                    drawMsg(" 黒の番です")
-                else
-                    drawMsg(" 白の番です")
-                debugValue++
             }
             */
         }
