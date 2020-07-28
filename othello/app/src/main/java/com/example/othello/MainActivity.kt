@@ -19,11 +19,16 @@ import com.example.othello.common.Companion.CELL_WHITE
 
 class MainActivity : AppCompatActivity() {
 
-    private var debugValue : Int = 0
+    //GameManager
+    private var gameManager : GameMan = GameMan()
 
+    //手番表示用
+    private var nextTurn : Int = common.CELL_EMPTY
+
+    //盤面サイズ
     private val squareNum       = BOARD_SIZE
 
-    //マスの状態 [0:空き、1:黒、2:白]
+    //マスの状態 [CELL_ENPTY:空き、CELL_BLACK:黒、CELL_WHITE:白]
     var territory = Array(squareNum) {IntArray(squareNum)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +42,10 @@ class MainActivity : AppCompatActivity() {
             //drawMsg("Startボタン押下")
             drawMsg("黒の番です")
             //初期化
-            debugValue = 0
-            territory = Array(squareNum) {IntArray(squareNum)}
+//            territory = Array(squareNum) {IntArray(squareNum)}
+            gameManager.initBoard()
+            territory = gameManager.getTable()
+            nextTurn = gameManager.getNextTurn()
             myView.invalidate()
         }
 
@@ -123,7 +130,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             //forDebug, タップしたセルにコマを置く,
-            territory[cellY][cellX] = debugValue%2+1
+            if(gameManager.putStone(cellX, cellY)){
+                territory = gameManager.getTable()
+                drawScore(gameManager.getWhiteStoneNum(), gameManager.getBlackStoneNum())
+                nextTurn = gameManager.getNextTurn()
+            }
             invalidate()
 
             return super.onTouchEvent(event)
@@ -201,16 +212,9 @@ class MainActivity : AppCompatActivity() {
             cellY = ((touchY - twoPoint[1]) / ((twoPoint[2] - twoPoint[0]) / squareNum)).toInt()
 
             //forDebug,
-            drawScore(cellX, cellY)
+//            drawScore(cellX, cellY)
         }
     }
-
-
-    /*
-    //コマ描画
-    fun drawPiece(cellX : Int, cellY : Int){
-    }
-    */
 
     //スコア描画
     fun drawScore(whiteScore : Int, blackScore:Int){
@@ -234,6 +238,7 @@ class MainActivity : AppCompatActivity() {
             }
             */
 
+            /*
             MotionEvent.ACTION_UP -> {
                 //メッセージ描画テスト
                 if(debugValue%2==1)
@@ -242,6 +247,7 @@ class MainActivity : AppCompatActivity() {
                     drawMsg(" 白の番です")
                 debugValue++
             }
+            */
         }
         return super.onTouchEvent(event)
     }
