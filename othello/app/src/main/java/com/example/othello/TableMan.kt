@@ -1,3 +1,5 @@
+package com.example.othello
+
 import androidx.appcompat.app.AppCompatActivity
 
 class TableMan {
