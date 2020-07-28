@@ -1,20 +1,6 @@
 package com.example.othello
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
-import android.util.DisplayMetrics
-import android.util.Log
-import android.view.View
-import android.view.MotionEvent
-//import TableMan
-
 class GameMan {
-
     companion object {
         const val Empty = 0
         const val Black = 1
@@ -33,7 +19,7 @@ class GameMan {
     private var tm = TableMan()
 
     init {
-        tm.Initialize()
+        tm.initialize()
     }
 
     public fun putStone(x:Int, y:Int): Boolean {
@@ -42,7 +28,7 @@ class GameMan {
         //  return false
 
         // 置けるならテーブル更新
-        tm.PutStone(x, y, currentturn)
+        tm.putStone(x, y, currentturn)
 
         // TODO:次の手番判定
         // 下記は暫定処理
@@ -59,26 +45,21 @@ class GameMan {
     }
 
     public fun getWhiteStoneNum(): Int {
-        return tm.CountStone(common.CELL_WHITE)
+        return tm.countStone(common.CELL_WHITE)
     }
 
     public fun getBlackStoneNum(): Int {
-        return tm.CountStone(common.CELL_BLACK)
+        return tm.countStone(common.CELL_BLACK)
     }
 
     public fun getNextTurn(): Int {
         return currentturn
     }
 
-    // 盤用配列を初期化(初期のまっさらな盤面)
-    //fun clearBoard() {
-    //    tm.Initialize()
-    //}
-
-    // 盤用配列を初期化(初期盤面)
+     // 盤用配列を初期化(初期盤面)
     fun initBoard() {
-        tm.Initialize()
-        tm.InitialPlacement()
+        tm.initialize()
+        tm.initialPlacement()
     }
 
     // 石が置かれた後の盤面を作成する
