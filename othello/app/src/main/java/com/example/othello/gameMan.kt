@@ -1,13 +1,6 @@
 package com.example.othello
 
 class GameMan {
-    companion object {
-        const val Empty = 0
-        const val Black = 1
-        const val White = 2
-        const val boardSize = 8
-    }
-
     var currentturn: Int = common.CELL_BLACK // 手番保持用変数
 
     var x: Int = 1 // 取得したx座標
@@ -63,7 +56,7 @@ class GameMan {
     fun makeBoard(): Boolean
     {
         //すでに石が起これていいた場合は置けない
-        if (tm.board[x][y] ==White||tm.board[x][y] ==Black){
+        if (tm.board[x][y] ==common.CELL_WHITE||tm.board[x][y] ==common.CELL_BLACK){
             return false
         }
 
@@ -76,9 +69,9 @@ class GameMan {
         // 相手が石が置けるかチェック
 
         // 石が置かれた場合手番を入れ替える
-        if(currentturn == Black)
+        if(currentturn == common.CELL_BLACK)
         {
-            currentturn = White
+            currentturn = common.CELL_WHITE
         }
 
         // ゲーム終了かチェック
@@ -90,8 +83,8 @@ class GameMan {
     // 次に相手が石が置ける場所があるか判定する
     fun Isskip(color: Int):Boolean
     {
-        for (i in 0..boardSize-1) {
-            for (k in 0..boardSize-1) {
+        for (i in 0..common.BOARD_SIZE-1) {
+            for (k in 0..common.BOARD_SIZE-1) {
                if( isPut(i,k,color))
                {
                    return true
@@ -109,14 +102,14 @@ class GameMan {
         var Turnstone: Int = 0 // 相手の手番
         var countFlag: Boolean = true // 続けて架空人するかのフラグ
 
-        if (color == Black){
-            Turnstone = Black
-            Oppstone = White
+        if (color == common.CELL_BLACK){
+            Turnstone = common.CELL_BLACK
+            Oppstone = common.CELL_WHITE
         }
         else
         {
-            Turnstone = White
-            Oppstone = Black
+            Turnstone = common.CELL_WHITE
+            Oppstone = common.CELL_BLACK
         }
 
         count= 1
@@ -124,7 +117,7 @@ class GameMan {
         while(countFlag) {
             if (x - count >= 0) {
                 when (tm.board[x - count][y]) {
-                    Empty -> //空白マスの場合
+                    common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
                     }
@@ -150,7 +143,7 @@ class GameMan {
         while(countFlag) {
             if(x-count >= 0 && y-count >= 0) {
                 when (tm.board[x-count][y-count]) {
-                    Empty -> //空白マスの場合
+                    common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
                     }
@@ -177,7 +170,7 @@ class GameMan {
         while(countFlag) {
             if(y-count >= 0) {
                 when (tm.board[x][y-count]) {
-                    Empty -> //空白マスの場合
+                    common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
                     }
@@ -201,9 +194,9 @@ class GameMan {
         //右上判定
         count= 1
         while(countFlag) {
-            if(x+count < boardSize &&y-count >= 0) {
+            if(x+count < common.BOARD_SIZE &&y-count >= 0) {
                 when (tm.board[x+count][y-count]) {
-                    Empty -> //空白マスの場合
+                    common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
                     }
@@ -227,9 +220,9 @@ class GameMan {
         //右判定
         count= 1
         while(countFlag) {
-            if(x+count < boardSize) {
+            if(x+count < common.BOARD_SIZE) {
                 when (tm.board[x+count][y]) {
-                    Empty -> //空白マスの場合
+                    common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
                     }
@@ -253,9 +246,9 @@ class GameMan {
         //右下判定
         count= 1
         while(countFlag) {
-            if(x+count < boardSize && y+count < boardSize) {
+            if(x+count < common.BOARD_SIZE && y+count < common.BOARD_SIZE) {
                 when (tm.board[x+count][y+count]) {
-                    Empty -> //空白マスの場合
+                    common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
                     }
@@ -279,9 +272,9 @@ class GameMan {
         //下判定
         count= 1
         while(countFlag) {
-            if(y+count < boardSize) {
+            if(y+count < common.BOARD_SIZE) {
                 when (tm.board[x][y+count]) {
-                    Empty -> //空白マスの場合
+                    common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
                     }
@@ -307,7 +300,7 @@ class GameMan {
         while(countFlag) {
             if(x-count >= 0) {
                 when (tm.board[x-count][y+count]) {
-                    Empty -> //空白マスの場合
+                    common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
                     }
@@ -338,14 +331,14 @@ class GameMan {
         var Turnstone: Int = 0 // 相手の手番
         var countFlag: Boolean = true // 続けて架空人するかのフラグ
 
-        if (currentturn == Black){
-            Turnstone = Black
-            Oppstone = White
+        if (currentturn == common.CELL_BLACK){
+            Turnstone = common.CELL_BLACK
+            Oppstone = common.CELL_WHITE
         }
         else
         {
-            Turnstone = White
-            Oppstone = Black
+            Turnstone = common.CELL_WHITE
+            Oppstone = common.CELL_BLACK
         }
 
         count= 1
@@ -353,7 +346,7 @@ class GameMan {
         while(countFlag) {
             if (x - count >= 0) {
                 when (tm.board[x - count][y]) {
-                    Empty -> //空白マスの場合
+                    common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
                     }
@@ -381,7 +374,7 @@ class GameMan {
         while(countFlag) {
             if (y - count >= 0) {
                 when (tm.board[count][y -count]) {
-                    Empty -> //空白マスの場合
+                    common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
                     }
@@ -407,9 +400,9 @@ class GameMan {
         //右上にひっくり返すものがあればひっくり返す
         count= 1
         while(countFlag) {
-            if(x+count < boardSize &&y-count >= 0) {
+            if(x+count < common.BOARD_SIZE &&y-count >= 0) {
                 when (tm.board[x+count][y-count]) {
-                    Empty -> //空白マスの場合
+                    common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
                     }
@@ -435,9 +428,9 @@ class GameMan {
         //右判定
         count= 1
         while(countFlag) {
-            if(x+count < boardSize) {
+            if(x+count < common.BOARD_SIZE) {
                 when (tm.board[x+1][y]) {
-                    Empty -> //空白マスの場合
+                    common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
                     }
@@ -463,9 +456,9 @@ class GameMan {
         //右下判定
         count= 1
         while(countFlag) {
-            if(x+count < boardSize && y+count < boardSize) {
+            if(x+count < common.BOARD_SIZE && y+count < common.BOARD_SIZE) {
                 when (tm.board[x+1][y+1]) {
-                    Empty -> //空白マスの場合
+                    common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
                     }
@@ -491,9 +484,9 @@ class GameMan {
         //下判定
         count= 1
         while(countFlag) {
-            if(y+count < boardSize) {
+            if(y+count < common.BOARD_SIZE) {
                 when (tm.board[x][y+1]) {
-                    Empty -> //空白マスの場合
+                    common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
                     }
@@ -519,9 +512,9 @@ class GameMan {
         //左下判定
         count= 1
         while(countFlag) {
-            if(x-count >= 0 &&y+count < boardSize) {
+            if(x-count >= 0 &&y+count < common.BOARD_SIZE) {
                 when (tm.board[x-1][y+1]) {
-                    Empty -> //空白マスの場合
+                    common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
                     }
