@@ -30,7 +30,7 @@ class GameMan {
         }
 
         // TODO:置けるならテーブル更新
-        // reverseStone()
+        reverseStone(x, y, currentturn)
         tm.putStone(x, y, currentturn)
 
         // TODO:次の手番判定
@@ -68,29 +68,6 @@ class GameMan {
     }
 
     // 石が置かれた後の盤面を作成する
-    fun makeBoard(): Boolean {
-        //すでに石が起これていいた場合は置けない
-        if (tm.board[x][y] == Common.CELL_WHITE || tm.board[x][y] == Common.CELL_BLACK) {
-            return false
-        }
-
-        // 石をおいておかれた後の盤面を作成する
-        if (!reverseStone()) {
-            return false
-        }
-
-        // 相手が石が置けるかチェック
-
-        // 石が置かれた場合手番を入れ替える
-        if (currentturn == Common.CELL_BLACK) {
-            currentturn = Common.CELL_WHITE
-        }
-
-        // ゲーム終了かチェック
-
-
-        return true
-    }
 
     // 次に相手が石が置ける場所があるか判定する
     fun Isskip(color: Int): Boolean {
@@ -346,15 +323,14 @@ class GameMan {
         return false
     }
 
-    fun reverseStone(): Boolean
-    {
+    fun reverseStone(x: Int, y: Int, color: Int): Boolean {
         var count: Int = 0
 
         var Oppstone: Int = 0 // 現在の手番
         var Turnstone: Int = 0 // 相手の手番
         var countFlag: Boolean = true // 続けて架空人するかのフラグ
 
-        if (currentturn == Common.CELL_BLACK){
+        if (color == Common.CELL_BLACK){
             Turnstone = Common.CELL_BLACK
             Oppstone = Common.CELL_WHITE
         }
