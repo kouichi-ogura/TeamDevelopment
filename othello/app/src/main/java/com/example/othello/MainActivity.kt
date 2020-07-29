@@ -126,11 +126,14 @@ class MainActivity : AppCompatActivity() {
 
             //タップしたセルにコマを置く,
             when(gameManager.putStone(cellX, cellY)){
-                true ->{
+                Common.PUT_OK_CONTINUE ->{
                     drawScoreAndTurn()
                 }
-                false ->{
+                Common.PUT_NG ->{
                     drawMsg("そこには置けません")
+                }
+                Common.PUT_OK_END ->{
+                    drawMsg("試合終了") //暫定,
                 }
             }
             invalidate()
