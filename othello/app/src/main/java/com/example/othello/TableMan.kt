@@ -5,7 +5,7 @@ class TableMan {
     private var cellYnum:Int = 8    // Y方向のマス数
 
     // 盤面
-    public var board = Array(cellXnum) { IntArray(cellYnum){common.CELL_EMPTY} }
+    public var board = Array(cellXnum) { IntArray(cellYnum){Common.CELL_EMPTY} }
         private set
 
     public fun initialize( cellXnum:Int = 8, cellYnum:Int = 8 ){
@@ -14,15 +14,15 @@ class TableMan {
         this.cellYnum = cellYnum
 
         // 盤面の初期化
-        this.board = Array(cellXnum) {IntArray(cellYnum){common.CELL_EMPTY}}
+        this.board = Array(cellXnum) {IntArray(cellYnum){Common.CELL_EMPTY}}
     }
 
     public fun initialPlacement() {
         // 初期配置
-        putStone(3, 3, common.CELL_BLACK)
-        putStone(3, 4, common.CELL_WHITE)
-        putStone(4, 3, common.CELL_WHITE)
-        putStone(4, 4, common.CELL_BLACK)
+        putStone(3, 3, Common.CELL_BLACK)
+        putStone(3, 4, Common.CELL_WHITE)
+        putStone(4, 3, Common.CELL_WHITE)
+        putStone(4, 4, Common.CELL_BLACK)
     }
 
     public fun countStone(color:Int):Int{
@@ -49,12 +49,12 @@ class TableMan {
 
     // 白石を置く
     public fun putStoneWhite( cellX:Int, cellY:Int ):Boolean{
-        return putStone(cellX, cellY, common.CELL_WHITE)
+        return putStone(cellX, cellY, Common.CELL_WHITE)
     }
 
     // 黒石を置く
     public fun putStoneBlack( cellX:Int, cellY:Int ):Boolean{
-        return putStone(cellX, cellY, common.CELL_BLACK)
+        return putStone(cellX, cellY, Common.CELL_BLACK)
     }
 
     // Debug用途
