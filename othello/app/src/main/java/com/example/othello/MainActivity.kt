@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private var gameManager : GameMan = GameMan()
 
     //盤面サイズ
-    private val squareNum : Int = common.BOARD_SIZE
+    private val squareNum : Int = Common.BOARD_SIZE
 
     //マスの状態 [CELL_ENPTY:空き、CELL_BLACK:黒、CELL_WHITE:白]
     var territory = Array(squareNum) {IntArray(squareNum)}
@@ -179,12 +179,12 @@ class MainActivity : AppCompatActivity() {
 
             when(state) {
                 //空マス
-                common.CELL_EMPTY -> {}
+                Common.CELL_EMPTY -> {}
                 //黒コマ
-                common.CELL_BLACK -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
+                Common.CELL_BLACK -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
                                         offset + cellY*areaSize + areaSize/2, r, paintBlackPiece)
                 //白コマ
-                common.CELL_WHITE -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
+                Common.CELL_WHITE -> canvas.drawCircle(offset + cellX*areaSize + areaSize/2,
                                         offset + cellY*areaSize + areaSize/2, r, paintWhitePiece)
                 //
                 else -> {}
@@ -230,7 +230,7 @@ class MainActivity : AppCompatActivity() {
 
     //手番描画
     fun drawTurn(turn : Int){
-        if(turn == common.CELL_BLACK)
+        if(turn == Common.CELL_BLACK)
             drawMsg(" 黒の番です")
         else
             drawMsg(" 白の番です")
