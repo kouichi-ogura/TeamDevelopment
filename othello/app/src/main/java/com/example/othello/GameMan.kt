@@ -12,35 +12,48 @@ class GameMan {
         tm.initialize()
     }
 
-
     private fun isAlreadyPut(x: Int, y: Int): Boolean {
         return tm.board[x][y] != Common.CELL_EMPTY
     }
 
-    public fun putStone(x: Int, y: Int): Boolean {
+    private fun swapTurn()
+    {
+        // 石が置かれた場合手番を入れ替える
+        if (currentturn == Common.CELL_BLACK) {
+            currentturn = Common.CELL_WHITE
+        }else {
+        }
+        currentturn = Common.CELL_BLACK
+    }
+
+    public fun putStone(x: Int, y: Int): Int {
 
         // すでに石が置かれているかチェック
         if (isAlreadyPut(x, y)) {
-            return false
+            return Common.PUT_NG
         }
 
-        //TODO:挟むことができるかチェック
+        //挟むことができるかチェック
         if (!isPut(x, y, currentturn)) {
-            return false
+            return Common.PUT_NG
         }
 
         // TODO:置けるならテーブル更新
         // reverseStone()
         tm.putStone(x, y, currentturn)
 
-        // TODO:次の手番判定
-        // 下記は暫定処理
-        if (currentturn == Common.CELL_BLACK) {
-            currentturn = Common.CELL_WHITE
-        } else {
-            currentturn = Common.CELL_BLACK
+        // 次の手番判定
+        // 相手が石が置けるかチェック
+        swapTurn()
+        if ( ! IsAnyPut(currentturn)){
+            swapTurn()
+            if ( ! IsAnyPut(currentturn)) {
+                // ゲーム終了かチェック
+                return Common.PUT_OK_END
+            }
         }
-        return true
+
+        return Common.PUT_OK_CONTINUE
     }
 
     public fun getTable(): Array<IntArray> {
@@ -67,33 +80,8 @@ class GameMan {
 
     }
 
-    // 石が置かれた後の盤面を作成する
-    fun makeBoard(): Boolean {
-        //すでに石が起これていいた場合は置けない
-        if (tm.board[x][y] == Common.CELL_WHITE || tm.board[x][y] == Common.CELL_BLACK) {
-            return false
-        }
-
-        // 石をおいておかれた後の盤面を作成する
-        if (!reverseStone()) {
-            return false
-        }
-
-        // 相手が石が置けるかチェック
-
-        // 石が置かれた場合手番を入れ替える
-        if (currentturn == Common.CELL_BLACK) {
-            currentturn = Common.CELL_WHITE
-        }
-
-        // ゲーム終了かチェック
-
-
-        return true
-    }
-
     // 次に相手が石が置ける場所があるか判定する
-    fun Isskip(color: Int): Boolean {
+    fun IsAnyPut(color: Int): Boolean {
         for (i in 0..Common.BOARD_SIZE - 1) {
             for (k in 0..Common.BOARD_SIZE - 1) {
                 if (isPut(i, k, color)) {
