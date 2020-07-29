@@ -111,6 +111,10 @@ class MainActivity : AppCompatActivity() {
                     touchX = event.getX().toInt()
                     touchY = event.getY().toInt()
                 }
+
+                MotionEvent.ACTION_UP -> {
+                    drawTurn(gameManager.getNextTurn())
+                }
             }
 
             // タップ位置が盤面内ならタップ位置を座標に変換して保持
@@ -121,8 +125,13 @@ class MainActivity : AppCompatActivity() {
             }
 
             //タップしたセルにコマを置く,
-            if(gameManager.putStone(cellX, cellY)){
-                drawScoreAndTurn()
+            when(gameManager.putStone(cellX, cellY)){
+                true ->{
+                    drawScoreAndTurn()
+                }
+                false ->{
+                    drawMsg("そこには置けません")
+                }
             }
             invalidate()
 
@@ -228,9 +237,10 @@ class MainActivity : AppCompatActivity() {
             /*
             MotionEvent.ACTION_DOWN -> {
             }
-            MotionEvent.ACTION_UP -> {
-            }
             */
+            MotionEvent.ACTION_UP -> {
+                drawTurn(gameManager.getNextTurn())
+            }
         }
         return super.onTouchEvent(event)
     }
