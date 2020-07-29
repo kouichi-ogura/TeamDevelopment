@@ -39,7 +39,7 @@ class GameMan {
         }
 
         // TODO:置けるならテーブル更新
-        // reverseStone()
+        reverseStone(x, y, currentturn)
         tm.putStone(x, y, currentturn)
 
         // 次の手番判定
@@ -334,15 +334,14 @@ class GameMan {
         return false
     }
 
-    fun reverseStone(): Boolean
-    {
+    fun reverseStone(x: Int, y: Int, color: Int): Boolean {
         var count: Int = 0
 
         var Oppstone: Int = 0 // 現在の手番
         var Turnstone: Int = 0 // 相手の手番
         var countFlag: Boolean = true // 続けて架空人するかのフラグ
 
-        if (currentturn == Common.CELL_BLACK){
+        if (color == Common.CELL_BLACK){
             Turnstone = Common.CELL_BLACK
             Oppstone = Common.CELL_WHITE
         }
