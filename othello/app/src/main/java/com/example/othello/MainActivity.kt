@@ -30,12 +30,12 @@ class MainActivity : AppCompatActivity() {
 
         //初期化
         var myView = MyView(this)
-        init()
+        initialize()
 
         //「リセット」ボタン押下
         findViewById<Button>(R.id.resetButton).setOnClickListener{
             //初期化
-            init()
+            initialize()
             myView.invalidate()
         }
 
@@ -243,7 +243,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // 初期化
-    fun init() {
+    fun initialize() {
         gameManager.initBoard()
         drawScoreAndTurn()
     }
