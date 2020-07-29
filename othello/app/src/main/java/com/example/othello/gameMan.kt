@@ -113,6 +113,7 @@ class GameMan {
         }
 
         count= 1
+        
         //左に左方向にひっくり返すものがあれるか確認
         while(countFlag) {
             if (x - count >= 0) {
