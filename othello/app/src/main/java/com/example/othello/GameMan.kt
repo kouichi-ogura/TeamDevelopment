@@ -12,10 +12,21 @@ class GameMan {
         tm.initialize()
     }
 
+    private fun isAlreadyPut(x:Int, y:Int): Boolean {
+        return tm.board[x][y] != Common.CELL_EMPTY
+    }
+
     public fun putStone(x:Int, y:Int): Boolean {
-        //TODO:置けるかチェック
-        //if(!isPut(x, y, currentturn))
-        //    return false
+
+        // すでに石が置かれているかチェック
+        if (isAlreadyPut(x, y)){
+            return false
+        }
+
+        //TODO:挟むことができるかチェック
+        if(!isPut(x, y, currentturn)) {
+            return false
+        }
 
         // TODO:置けるならテーブル更新
         // reverseStone()
