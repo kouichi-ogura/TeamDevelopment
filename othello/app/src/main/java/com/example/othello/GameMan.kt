@@ -12,6 +12,7 @@ class GameMan {
         tm.initialize()
     }
 
+
     private fun isAlreadyPut(x:Int, y:Int): Boolean {
         return tm.board[x][y] != Common.CELL_EMPTY
     }
@@ -62,6 +63,8 @@ class GameMan {
     fun initBoard() {
         tm.initialize()
         tm.initialPlacement()
+         currentturn = Common.CELL_BLACK
+
     }
 
     // 石が置かれた後の盤面を作成する
@@ -106,7 +109,7 @@ class GameMan {
         return false
     }
 
-    fun isPut(x:Int ,y:Int ,color:Int): Boolean
+       fun isPut(x:Int ,y:Int ,color:Int): Boolean
     {
         var count: Int = 1
 
@@ -125,7 +128,7 @@ class GameMan {
         }
 
         count= 1
-        
+        countFlag = true
         //左に左方向にひっくり返すものがあれるか確認
         while(countFlag) {
             if (x - count >= 0) {
@@ -140,7 +143,7 @@ class GameMan {
                     }
                     Turnstone -> //　自分の石の場合
                     {
-                        if (count == 0) {
+                        if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
                         } else
                         {
@@ -149,10 +152,15 @@ class GameMan {
                     }
                 }
             }
+            else
+            {
+                countFlag = false; //空白の場合は終了
+            }
         }
 
         //左上判定
         count = 1
+        countFlag = true
         while(countFlag) {
             if(x-count >= 0 && y-count >= 0) {
                 when (tm.board[x-count][y-count]) {
@@ -166,7 +174,7 @@ class GameMan {
                     }
                     Turnstone -> //　自分の石の場合
                     {
-                        if (count == 0) {
+                        if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
                         } else
                         {
@@ -175,11 +183,17 @@ class GameMan {
                     }
                 }
             }
+            else
+            {
+                countFlag = false; //空白の場合は終了
+            }
         }
+
 
 
         //上判定
         count= 1
+        countFlag = true
         while(countFlag) {
             if(y-count >= 0) {
                 when (tm.board[x][y-count]) {
@@ -193,7 +207,7 @@ class GameMan {
                     }
                     Turnstone -> //　自分の石の場合
                     {
-                        if (count == 0) {
+                        if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
                         } else
                         {
@@ -202,10 +216,15 @@ class GameMan {
                     }
                 }
             }
+            else
+            {
+                countFlag = false; //空白の場合は終了
+            }
         }
 
         //右上判定
         count= 1
+        countFlag = true
         while(countFlag) {
             if(x+count < Common.BOARD_SIZE &&y-count >= 0) {
                 when (tm.board[x+count][y-count]) {
@@ -219,7 +238,7 @@ class GameMan {
                     }
                     Turnstone -> //　自分の石の場合
                     {
-                        if (count == 0) {
+                        if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
                         } else
                         {
@@ -228,10 +247,15 @@ class GameMan {
                     }
                 }
             }
+            else
+            {
+                countFlag = false; //空白の場合は終了
+            }
         }
 
         //右判定
         count= 1
+        countFlag = true
         while(countFlag) {
             if(x+count < Common.BOARD_SIZE) {
                 when (tm.board[x+count][y]) {
@@ -245,7 +269,7 @@ class GameMan {
                     }
                     Turnstone -> //　自分の石の場合
                     {
-                        if (count == 0) {
+                        if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
                         } else
                         {
@@ -254,10 +278,15 @@ class GameMan {
                     }
                 }
             }
+            else
+            {
+                countFlag = false; //空白の場合は終了
+            }
         }
 
         //右下判定
         count= 1
+        countFlag = true
         while(countFlag) {
             if(x+count < Common.BOARD_SIZE && y+count < Common.BOARD_SIZE) {
                 when (tm.board[x+count][y+count]) {
@@ -271,7 +300,7 @@ class GameMan {
                     }
                     Turnstone -> //　自分の石の場合
                     {
-                        if (count == 0) {
+                        if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
                         } else
                         {
@@ -280,10 +309,15 @@ class GameMan {
                     }
                 }
             }
+            else
+            {
+                countFlag = false; //空白の場合は終了
+            }
         }
 
         //下判定
         count= 1
+        countFlag = true
         while(countFlag) {
             if(y+count < Common.BOARD_SIZE) {
                 when (tm.board[x][y+count]) {
@@ -297,7 +331,7 @@ class GameMan {
                     }
                     Turnstone -> //　自分の石の場合
                     {
-                        if (count == 0) {
+                        if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
                         } else
                         {
@@ -306,10 +340,15 @@ class GameMan {
                     }
                 }
             }
+            else
+            {
+                countFlag = false; //空白の場合は終了
+            }
         }
 
         //左下判定
         count= 1
+        countFlag = true
         while(countFlag) {
             if(x-count >= 0) {
                 when (tm.board[x-count][y+count]) {
@@ -323,7 +362,7 @@ class GameMan {
                     }
                     Turnstone -> //　自分の石の場合
                     {
-                        if (count == 0) {
+                        if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
                         } else
                         {
@@ -331,6 +370,10 @@ class GameMan {
                         }
                     }
                 }
+            }
+            else
+            {
+                countFlag = false; //空白の場合は終了
             }
         }
         return false
@@ -355,6 +398,7 @@ class GameMan {
         }
 
         count= 1
+        countFlag = true
         //左に左方向にひっくり返すものがあれるか確認
         while(countFlag) {
             if (x - count >= 0) {
@@ -369,7 +413,7 @@ class GameMan {
                     }
                     Turnstone -> //　自分の石の場合
                     {
-                        if (count == 0) {
+                        if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
                         } else
                         {
@@ -380,175 +424,12 @@ class GameMan {
                     }
                 }
             }
+            else
+            {
+                countFlag = false; //空白の場合は終了
+            }
+
         }
 
         count= 1
-        //上方向にひっくり返すものがあればひっくり返す
-        while(countFlag) {
-            if (y - count >= 0) {
-                when (tm.board[count][y -count]) {
-                    Common.CELL_EMPTY -> //空白マスの場合
-                    {
-                        countFlag = false; //空白の場合は終了
-                    }
-                    Oppstone -> // 相手の石の場合
-                    {
-                        count++
-                    }
-                    Turnstone -> //　自分の石の場合
-                    {
-                        if (count == 0) {
-                            countFlag = false; //隣に自分の石がある場合がある場合強制終了
-                        } else
-                        {
-                            for (i in 0..count){
-                                tm.board[x][y-i] = Turnstone
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        //右上にひっくり返すものがあればひっくり返す
-        count= 1
-        while(countFlag) {
-            if(x+count < Common.BOARD_SIZE &&y-count >= 0) {
-                when (tm.board[x+count][y-count]) {
-                    Common.CELL_EMPTY -> //空白マスの場合
-                    {
-                        countFlag = false; //空白の場合は終了
-                    }
-                    Oppstone -> // 相手の石の場合
-                    {
-                        count++
-                    }
-                    Turnstone -> //　自分の石の場合
-                    {
-                        if (count == 0) {
-                            countFlag = false; //隣に自分の石がある場合がある場合強制終了
-                        } else
-                        {
-                            for (i in 0..count){
-                                tm.board[x+i][y-i] = Turnstone
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        //右判定
-        count= 1
-        while(countFlag) {
-            if(x+count < Common.BOARD_SIZE) {
-                when (tm.board[x+1][y]) {
-                    Common.CELL_EMPTY -> //空白マスの場合
-                    {
-                        countFlag = false; //空白の場合は終了
-                    }
-                    Oppstone -> // 相手の石の場合
-                    {
-                        count++
-                    }
-                    Turnstone -> //　自分の石の場合
-                    {
-                        if (count == 0) {
-                            countFlag = false; //隣に自分の石がある場合がある場合強制終了
-                        } else
-                        {
-                            for (i in 0..count){
-                                tm.board[x+i][y] = Turnstone
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        //右下判定
-        count= 1
-        while(countFlag) {
-            if(x+count < Common.BOARD_SIZE && y+count < Common.BOARD_SIZE) {
-                when (tm.board[x+1][y+1]) {
-                    Common.CELL_EMPTY -> //空白マスの場合
-                    {
-                        countFlag = false; //空白の場合は終了
-                    }
-                    Oppstone -> // 相手の石の場合
-                    {
-                        count++
-                    }
-                    Turnstone -> //　自分の石の場合
-                    {
-                        if (count == 0) {
-                            countFlag = false; //隣に自分の石がある場合がある場合強制終了
-                        } else
-                        {
-                            for (i in 0..count){
-                                tm.board[x+i][y+i] = Turnstone
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        //下判定
-        count= 1
-        while(countFlag) {
-            if(y+count < Common.BOARD_SIZE) {
-                when (tm.board[x][y+1]) {
-                    Common.CELL_EMPTY -> //空白マスの場合
-                    {
-                        countFlag = false; //空白の場合は終了
-                    }
-                    Oppstone -> // 相手の石の場合
-                    {
-                        count++
-                    }
-                    Turnstone -> //　自分の石の場合
-                    {
-                        if (count == 0) {
-                            countFlag = false; //隣に自分の石がある場合がある場合強制終了
-                        } else
-                        {
-                            for (i in 0..count){
-                                tm.board[x+i][y-i] = Turnstone
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        //左下判定
-        count= 1
-        while(countFlag) {
-            if(x-count >= 0 &&y+count < Common.BOARD_SIZE) {
-                when (tm.board[x-1][y+1]) {
-                    Common.CELL_EMPTY -> //空白マスの場合
-                    {
-                        countFlag = false; //空白の場合は終了
-                    }
-                    Oppstone -> // 相手の石の場合
-                    {
-                        count++
-                    }
-                    Turnstone -> //　自分の石の場合
-                    {
-                        if (count == 0) {
-                            countFlag = false; //隣に自分の石がある場合がある場合強制終了
-                        } else
-                        {
-                            for (i in 0..count){
-                                tm.board[x-i][y+i] = Turnstone
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return true
-    }
-}
+        countFlag = true
