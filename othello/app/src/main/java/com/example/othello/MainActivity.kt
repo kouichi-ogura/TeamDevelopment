@@ -29,26 +29,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //初期化
-        gameManager.initBoard()
-        territory = gameManager.getTable()
-        drawScore(gameManager.getWhiteStoneNum(), gameManager.getBlackStoneNum())
-
-        //手番描画
-        drawTurn(gameManager.getNextTurn())
-
         var myView = MyView(this)
+        init()
 
         //「リセット」ボタン押下
         findViewById<Button>(R.id.resetButton).setOnClickListener{
             //初期化
-            gameManager.initBoard()
-            territory = gameManager.getTable()
-            drawScore(gameManager.getWhiteStoneNum(), gameManager.getBlackStoneNum())
-
+            init()
             myView.invalidate()
-
-            //手番描画
-            drawTurn(gameManager.getNextTurn())
         }
 
         //「終了」ボタン押下
@@ -134,10 +122,7 @@ class MainActivity : AppCompatActivity() {
 
             //タップしたセルにコマを置く,
             if(gameManager.putStone(cellX, cellY)){
-                territory = gameManager.getTable()
-                drawScore(gameManager.getWhiteStoneNum(), gameManager.getBlackStoneNum())
-                //手番描画
-                drawTurn(gameManager.getNextTurn())
+                drawScoreAndTurn()
             }
             invalidate()
 
@@ -250,4 +235,16 @@ class MainActivity : AppCompatActivity() {
         return super.onTouchEvent(event)
     }
 
+    // スコアと手番描画
+    fun drawScoreAndTurn() {
+        territory = gameManager.getTable()
+        drawScore(gameManager.getWhiteStoneNum(), gameManager.getBlackStoneNum())
+        drawTurn(gameManager.getNextTurn())
+    }
+
+    // 初期化
+    fun init() {
+        gameManager.initBoard()
+        drawScoreAndTurn()
+    }
 }
