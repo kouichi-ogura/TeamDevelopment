@@ -44,11 +44,11 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/startButton"
+                    android:id="@+id/resetButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="開始" />
+                    android:text="リセット" />
 
                 <Button
                     android:id="@+id/endButton"
@@ -76,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="自分(or相手)の番です" />
+                    android:text="開始ボタンを押して下さい" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -88,13 +88,13 @@
                         android:id="@+id/whiteScoreView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="○20個" />
+                        android:text="○0個" />
 
                     <TextView
                         android:id="@+id/blackScoreView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="●10個" />
+                        android:text="●0個" />
                 </LinearLayout>
             </LinearLayout>
 
