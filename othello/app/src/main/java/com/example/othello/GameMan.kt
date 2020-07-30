@@ -280,7 +280,7 @@ class GameMan {
         count = 1
         countFlag = true
         while (countFlag) {
-            if (y + count < Common.BOARD_SIZE) {
+            if (y + count < Common.BOARD_SIZE && y + count < Common.BOARD_SIZE) {
                 when (tm.board[x][y + count]) {
                     Common.CELL_EMPTY -> //空白マスの場合
                     {
@@ -308,7 +308,7 @@ class GameMan {
         count = 1
         countFlag = true
         while (countFlag) {
-            if (x - count >= 0) {
+            if (x-count >= 0 && y+count < Common.BOARD_SIZE) {
                 when (tm.board[x - count][y + count]) {
                     Common.CELL_EMPTY -> //空白マスの場合
                     {
