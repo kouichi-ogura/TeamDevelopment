@@ -372,7 +372,7 @@ class GameMan {
                         } else
                         {
                             for (i in 0..count){
-                                tm.board[x-i][y] = Turnstone
+                                tm.putStone(x-i, y, Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
                             }
                         }
@@ -407,7 +407,7 @@ class GameMan {
                         } else
                         {
                             for (i in 0..count){
-                                tm.board[x-i][y-i] = Turnstone
+                                tm.putStone(x-i, y-i, Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
                             }
                         }
@@ -442,7 +442,7 @@ class GameMan {
                         } else
                         {
                             for (i in 0..count){
-                                tm.board[x][y-i] = Turnstone
+                                tm.putStone(x, y-i,  Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
                             }
                         }
@@ -476,7 +476,7 @@ class GameMan {
                         } else
                         {
                             for (i in 0..count){
-                                tm.board[x+i][y-i] = Turnstone
+                                tm.putStone(x+i, y-i, Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
                             }
                         }
@@ -510,7 +510,7 @@ class GameMan {
                         } else
                         {
                             for (i in 0..count){
-                                tm.board[x+i][y] = Turnstone
+                                tm.putStone((x+i, y, Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
                             }
                         }
@@ -544,7 +544,7 @@ class GameMan {
                         } else
                         {
                             for (i in 0..count){
-                                tm.board[x+i][y+i] = Turnstone
+                                tm.putStone(x+i, y+i, Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
                             }
                         }
@@ -578,7 +578,7 @@ class GameMan {
                         } else
                         {
                             for (i in 0..count){
-                                tm.board[x][y+i] = Turnstone
+                                tm.putStone(x, y+i, Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
                             }
                         }
@@ -612,7 +612,7 @@ class GameMan {
                         } else
                         {
                             for (i in 0..count){
-                                tm.board[x-i][y+i] = Turnstone
+                                tm.putStone(x-i, y+i, Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
                             }
                         }
