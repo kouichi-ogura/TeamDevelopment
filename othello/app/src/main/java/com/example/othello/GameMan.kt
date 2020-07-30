@@ -426,7 +426,7 @@ class GameMan {
         //上方向にひっくり返すものがあればひっくり返す
         while(countFlag) {
             if (y - count >= 0) {
-                when (tm.board[count][y -count]) {
+                when (tm.board[x][y -count]) {
                     Common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
@@ -494,7 +494,7 @@ class GameMan {
         countFlag = true
         while(countFlag) {
             if(x+count < Common.BOARD_SIZE) {
-                when (tm.board[x+1][y]) {
+                when (tm.board[x+count][y]) {
                     Common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
@@ -528,7 +528,7 @@ class GameMan {
         countFlag = true
         while(countFlag) {
             if(x+count < Common.BOARD_SIZE && y+count < Common.BOARD_SIZE) {
-                when (tm.board[x+1][y+1]) {
+                when (tm.board[x+count][y+count]) {
                     Common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
@@ -562,7 +562,7 @@ class GameMan {
         countFlag = true
         while(countFlag) {
             if(y+count < Common.BOARD_SIZE) {
-                when (tm.board[x][y+1]) {
+                when (tm.board[x][y+count]) {
                     Common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
@@ -578,7 +578,7 @@ class GameMan {
                         } else
                         {
                             for (i in 0..count){
-                                tm.board[x+i][y-i] = Turnstone
+                                tm.board[x][y+i] = Turnstone
                                 countFlag = false // 裏返したらチェックを抜ける
                             }
                         }
@@ -596,7 +596,7 @@ class GameMan {
         countFlag = true
         while(countFlag) {
             if(x-count >= 0 &&y+count < Common.BOARD_SIZE) {
-                when (tm.board[x-1][y+1]) {
+                when (tm.board[x-count][y+count]) {
                     Common.CELL_EMPTY -> //空白マスの場合
                     {
                         countFlag = false; //空白の場合は終了
