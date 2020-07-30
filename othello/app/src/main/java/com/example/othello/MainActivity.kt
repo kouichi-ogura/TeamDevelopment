@@ -134,11 +134,23 @@ class MainActivity : AppCompatActivity() {
                     drawScoreAndTurn()
                 }
                 Common.PUT_NG ->{
-                    drawMsg("そこには置けません")
+                    if (gameEnd == 0) {
+                        drawMsg("そこには置けません")
+                    }
                 }
                 Common.PUT_OK_END ->{
                     drawScoreAndTurn()
-                    drawMsg("試合終了") //暫定,
+                    var whiteNum = gameManager.getWhiteStoneNum()
+                    var blackNum = gameManager.getBlackStoneNum()
+                    if (whiteNum > blackNum) {
+                        drawMsg("白の勝ち！！！")
+                    }
+                    else if (whiteNum < blackNum) {
+                        drawMsg("黒の勝ち！！！")
+                    }
+                    else {
+                        drawMsg("引き分け～")
+                    }
                     gameEnd = 1
                 }
             }
