@@ -4,6 +4,12 @@ class TableMan {
     private var cellXnum:Int = 8    // X方向のマス数
     private var cellYnum:Int = 8    // Y方向のマス数
 
+    public fun DeubugBoard(){
+        this.board = Array(cellXnum) {IntArray(cellYnum){Common.CELL_WHITE}}
+        putStone(0, 0, Common.CELL_EMPTY)
+        putStone(0, 2, Common.CELL_BLACK)
+    }
+
     // 盤面
     public var board = Array(cellXnum) { IntArray(cellYnum){Common.CELL_EMPTY} }
         private set
@@ -15,6 +21,8 @@ class TableMan {
 
         // 盤面の初期化
         this.board = Array(cellXnum) {IntArray(cellYnum){Common.CELL_EMPTY}}
+
+        // DeubugBoard()
     }
 
     public fun initialPlacement() {

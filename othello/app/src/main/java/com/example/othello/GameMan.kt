@@ -28,12 +28,7 @@ class GameMan {
 
     public fun putStone(x: Int, y: Int): Int {
 
-        // すでに石が置かれているかチェック
-        if (isAlreadyPut(x, y)) {
-            return Common.PUT_NG
-        }
-
-        //挟むことができるかチェック
+        //置けるかチェック
         if (!isPut(x, y, currentturn)) {
             return Common.PUT_NG
         }
@@ -93,8 +88,13 @@ class GameMan {
     }
 
     fun isPut(x: Int, y: Int, color: Int): Boolean {
-        var count: Int = 1
+        // すでに石が置かれているかチェック
+        if (isAlreadyPut(x, y)) {
+            return false
+        }
 
+        //挟むことができるかチェック
+        var count: Int = 1
         var Oppstone: Int = 0 // 現在の手番
         var Turnstone: Int = 0 // 相手の手番
         var countFlag: Boolean = true // 続けて架空人するかのフラグ
