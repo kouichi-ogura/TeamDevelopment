@@ -24,6 +24,9 @@ class MainActivity : AppCompatActivity() {
     //マスの状態 [CELL_ENPTY:空き、CELL_BLACK:黒、CELL_WHITE:白]
     var territory = Array(squareNum) {IntArray(squareNum)}
 
+    // 試合終了フラグ
+    var gameEnd : Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.resetButton).setOnClickListener{
             //初期化
             initialize()
+            gameEnd = 0
             myView.invalidate()
         }
 
@@ -133,7 +137,9 @@ class MainActivity : AppCompatActivity() {
                     drawMsg("そこには置けません")
                 }
                 Common.PUT_OK_END ->{
+                    drawScoreAndTurn()
                     drawMsg("試合終了") //暫定,
+                    gameEnd = 1
                 }
             }
             invalidate()
@@ -242,7 +248,9 @@ class MainActivity : AppCompatActivity() {
             }
             */
             MotionEvent.ACTION_UP -> {
-                drawTurn(gameManager.getNextTurn())
+                if (gameEnd == 0) {
+                    drawTurn(gameManager.getNextTurn())
+                }
             }
         }
         return super.onTouchEvent(event)
