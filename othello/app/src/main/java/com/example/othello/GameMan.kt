@@ -22,8 +22,8 @@ class GameMan {
         if (currentturn == Common.CELL_BLACK) {
             currentturn = Common.CELL_WHITE
         }else {
+            currentturn = Common.CELL_BLACK
         }
-        currentturn = Common.CELL_BLACK
     }
 
     public fun putStone(x: Int, y: Int): Int {
@@ -280,7 +280,7 @@ class GameMan {
         count = 1
         countFlag = true
         while (countFlag) {
-            if (y + count < Common.BOARD_SIZE && y + count < Common.BOARD_SIZE) {
+            if (y + count < Common.BOARD_SIZE) {
                 when (tm.board[x][y + count]) {
                     Common.CELL_EMPTY -> //空白マスの場合
                     {
