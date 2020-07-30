@@ -510,7 +510,7 @@ class GameMan {
                         } else
                         {
                             for (i in 0..count){
-                                tm.putStone((x+i, y, Turnstone)
+                                tm.putStone(x+i, y, Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
                             }
                         }
