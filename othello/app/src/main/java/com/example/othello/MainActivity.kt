@@ -126,35 +126,35 @@ class MainActivity : AppCompatActivity() {
                 (touchY >= startYPos.toInt() && touchY <= endYPos.toInt())) {
                 val twoPoint: FloatArray = floatArrayOf(startXPos, startYPos, endXPos, endYPos)
                 changePosToCoodinate(twoPoint, squareNum, touchX, touchY)
-            }
 
-            //タップしたセルにコマを置く,
-            when(gameManager.putStone(cellX, cellY)){
-                Common.PUT_OK_CONTINUE ->{
-                    drawScoreAndTurn()
-                }
-                Common.PUT_NG ->{
-                    if (gameEnd == 0) {
-                        drawMsg("そこには置けません")
+                //タップしたセルにコマを置く,
+                when(gameManager.putStone(cellX, cellY)){
+                    Common.PUT_OK_CONTINUE ->{
+                        drawScoreAndTurn()
+                    }
+                    Common.PUT_NG ->{
+                        if (gameEnd == 0) {
+                            drawMsg("そこには置けません")
+                        }
+                    }
+                    Common.PUT_OK_END ->{
+                        drawScoreAndTurn()
+                        var whiteNum = gameManager.getWhiteStoneNum()
+                        var blackNum = gameManager.getBlackStoneNum()
+                        if (whiteNum > blackNum) {
+                            drawMsg("白の勝ち！！！")
+                        }
+                        else if (whiteNum < blackNum) {
+                            drawMsg("黒の勝ち！！！")
+                        }
+                        else {
+                            drawMsg("引き分け～")
+                        }
+                        gameEnd = 1
                     }
                 }
-                Common.PUT_OK_END ->{
-                    drawScoreAndTurn()
-                    var whiteNum = gameManager.getWhiteStoneNum()
-                    var blackNum = gameManager.getBlackStoneNum()
-                    if (whiteNum > blackNum) {
-                        drawMsg("白の勝ち！！！")
-                    }
-                    else if (whiteNum < blackNum) {
-                        drawMsg("黒の勝ち！！！")
-                    }
-                    else {
-                        drawMsg("引き分け～")
-                    }
-                    gameEnd = 1
-                }
+                invalidate()
             }
-            invalidate()
 
             return super.onTouchEvent(event)
         }
