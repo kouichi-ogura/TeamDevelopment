@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //初期化
-        var myView = MyView(this)
+        val myView = MyView(this)
         initialize()
 
         //「リセット」ボタン押下
@@ -75,8 +76,8 @@ class MainActivity : AppCompatActivity() {
         private val endYPos         = displayWidth - startYPos
 
         // タップされたセルのX/Y位置
-        var cellX : Int     = 0
-        var cellY : Int     = 0
+        private var cellX : Int     = 0
+        private var cellY : Int     = 0
 
         override fun onDraw(canvas: Canvas){
 
@@ -99,7 +100,6 @@ class MainActivity : AppCompatActivity() {
             //コマ描画
             for(y in 0 until squareNum){
                 for(x in 0 until squareNum){
-//                    drawPiece(canvas, territory[y][x], y, x)
                     drawPiece(canvas, territory[x][y], y, x)
                 }
             }
@@ -134,21 +134,27 @@ class MainActivity : AppCompatActivity() {
                     }
                     Common.PUT_NG ->{
                         if (gameEnd == 0) {
-                            drawMsg("そこには置けません")
+                            drawMsg(getString(R.string.cannot_put_msg))
                         }
                     }
                     Common.PUT_OK_END ->{
                         drawScoreAndTurn()
-                        var whiteNum = gameManager.getWhiteStoneNum()
-                        var blackNum = gameManager.getBlackStoneNum()
+                        val whiteNum = gameManager.getWhiteStoneNum()
+                        val blackNum = gameManager.getBlackStoneNum()
                         if (whiteNum > blackNum) {
-                            drawMsg("白の勝ち！！！")
+                            drawMsg(getString(R.string.white_win_msg))
+                            popupMsg(getString(R.string.title_end_msg),
+                                    getString(R.string.white_win_msg))
                         }
                         else if (whiteNum < blackNum) {
-                            drawMsg("黒の勝ち！！！")
+                            drawMsg(getString(R.string.black_win_msg))
+                            popupMsg(getString(R.string.title_end_msg),
+                                    getString(R.string.black_win_msg))
                         }
                         else {
-                            drawMsg("引き分け～")
+                            drawMsg(getString(R.string.draw_msg))
+                            popupMsg(getString(R.string.title_end_msg),
+                                    getString(R.string.draw_msg))
                         }
                         gameEnd = 1
                     }
@@ -246,9 +252,9 @@ class MainActivity : AppCompatActivity() {
     //手番描画
     private fun drawTurn(turn : Int){
         if(turn == Common.CELL_BLACK)
-            drawMsg(" 黒の番です")
+            drawMsg(getString(R.string.turn_black))
         else
-            drawMsg(" 白の番です")
+            drawMsg(getString(R.string.turn_white))
     }
 
     //タッチイベント
@@ -261,6 +267,7 @@ class MainActivity : AppCompatActivity() {
             */
             MotionEvent.ACTION_UP -> {
                 if (gameEnd == 0) {
+                    //コマ置けないメッセージ表示後(UP時)に再度手番表示,
                     drawTurn(gameManager.getNextTurn())
                 }
             }
@@ -279,5 +286,14 @@ class MainActivity : AppCompatActivity() {
     private fun initialize() {
         gameManager.initBoard()
         drawScoreAndTurn()
+    }
+
+    //ポップアップメッセージ表示
+    private fun popupMsg(title: String, msg : String){
+        val builder = AlertDialog.Builder(this)
+            .setTitle(title)
+            .setMessage(msg)
+            .setPositiveButton("OK", null)
+            .show()
     }
 }

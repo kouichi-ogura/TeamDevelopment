@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Othello</string>
+    <string name="white_win_msg">白の勝ち！！！</string>
+    <string name="black_win_msg">黒の勝ち！！！</string>
+    <string name="draw_msg">引き分け～</string>
+    <string name="turn_black">黒の番です</string>
+    <string name="turn_white">白の番です</string>
+    <string name="cannot_put_msg">そこには置けません</string>
+    <string name="title_end_msg">ゲーム終了</string>
 </resources>
