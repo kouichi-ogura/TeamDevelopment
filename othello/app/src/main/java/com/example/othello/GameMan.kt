@@ -1,10 +1,7 @@
 package com.example.othello
 
 class GameMan {
-    var currentturn: Int = Common.CELL_BLACK // 手番保持用変数
-    var x: Int = 1 // 取得したx座標
-    var y: Int = 1 // 取得したy座標
-
+    private var currentTurn: Int = Common.CELL_BLACK // 手番保持用変数
     private var tm = TableMan()
 
     init {
@@ -15,19 +12,19 @@ class GameMan {
     fun initBoard() {
         tm.initialize()
         tm.initialPlacement()
-        currentturn = Common.CELL_BLACK
+        currentTurn = Common.CELL_BLACK
     }
 
     // UIからの呼び出しで石を置く
     fun putStone(x: Int, y: Int): Int {
 
         //置けるかチェック
-        if (!isPut(x, y, currentturn)) {
+        if (!isPut(x, y, currentTurn)) {
             return Common.PUT_NG
         }
 
         // 置いた石を基準に挟める方向はひっくり返す
-        reverseStone(x, y, currentturn)
+        reverseStone(x, y, currentTurn)
 
         // 次の手番判定
         if (!setNextTurn())
@@ -55,7 +52,7 @@ class GameMan {
 
     // 次手番を返す
     fun getNextTurn(): Int {
-        return currentturn
+        return currentTurn
     }
 
     // すでに置いてあるかチェック
@@ -67,10 +64,10 @@ class GameMan {
     private fun swapTurn()
     {
         // 石が置かれた場合手番を入れ替える
-        if (currentturn == Common.CELL_BLACK) {
-            currentturn = Common.CELL_WHITE
+        if (currentTurn == Common.CELL_BLACK) {
+            currentTurn = Common.CELL_WHITE
         }else {
-            currentturn = Common.CELL_BLACK
+            currentTurn = Common.CELL_BLACK
         }
     }
 
@@ -78,10 +75,10 @@ class GameMan {
     private fun setNextTurn():Boolean{
         // 相手が置けるかチェック
         swapTurn()
-        if ( ! IsAnyPut(currentturn)){
+        if ( ! IsAnyPut(currentTurn)){
             // 自分が置けるかチェック
             swapTurn()
-            if ( ! IsAnyPut(currentturn)) {
+            if ( ! IsAnyPut(currentTurn)) {
                 // どちらも置けない
                 return false
             }
@@ -177,7 +174,6 @@ class GameMan {
                 countFlag = false; //空白の場合は終了
             }
         }
-
 
         //上判定
         count = 1
@@ -356,12 +352,10 @@ class GameMan {
         var Turnstone: Int = 0 // 相手の手番
         var countFlag: Boolean = true // 続けて架空人するかのフラグ
 
-        if (color == Common.CELL_BLACK){
+        if (color == Common.CELL_BLACK) {
             Turnstone = Common.CELL_BLACK
             Oppstone = Common.CELL_WHITE
-        }
-        else
-        {
+        } else {
             Turnstone = Common.CELL_WHITE
             Oppstone = Common.CELL_BLACK
         }
@@ -384,8 +378,7 @@ class GameMan {
                     {
                         if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
-                        } else
-                        {
+                        } else {
                             for (i in 0..count){
                                 tm.putStone(x-i, y, Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
@@ -393,12 +386,9 @@ class GameMan {
                         }
                     }
                 }
-            }
-            else
-            {
+            } else {
                 countFlag = false; //空白の場合は終了
             }
-
         }
 
         count= 1
@@ -419,8 +409,7 @@ class GameMan {
                     {
                         if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
-                        } else
-                        {
+                        } else {
                             for (i in 0..count){
                                 tm.putStone(x-i, y-i, Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
@@ -428,12 +417,9 @@ class GameMan {
                         }
                     }
                 }
-            }
-            else
-            {
+            } else {
                 countFlag = false; //空白の場合は終了
             }
-
         }
 
         count= 1
@@ -454,8 +440,7 @@ class GameMan {
                     {
                         if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
-                        } else
-                        {
+                        } else {
                             for (i in 0..count){
                                 tm.putStone(x, y-i,  Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
@@ -463,9 +448,7 @@ class GameMan {
                         }
                     }
                 }
-            }
-            else
-            {
+            } else {
                 countFlag = false; //空白の場合は終了
             }
         }
@@ -488,8 +471,7 @@ class GameMan {
                     {
                         if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
-                        } else
-                        {
+                        } else {
                             for (i in 0..count){
                                 tm.putStone(x+i, y-i, Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
@@ -497,9 +479,7 @@ class GameMan {
                         }
                     }
                 }
-            }
-            else
-            {
+            } else {
                 countFlag = false; //空白の場合は終了
             }
         }
@@ -522,8 +502,7 @@ class GameMan {
                     {
                         if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
-                        } else
-                        {
+                        } else {
                             for (i in 0..count){
                                 tm.putStone(x+i, y, Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
@@ -531,9 +510,7 @@ class GameMan {
                         }
                     }
                 }
-            }
-            else
-            {
+            } else {
                 countFlag = false; //空白の場合は終了
             }
         }
@@ -556,8 +533,7 @@ class GameMan {
                     {
                         if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
-                        } else
-                        {
+                        } else {
                             for (i in 0..count){
                                 tm.putStone(x+i, y+i, Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
@@ -565,9 +541,7 @@ class GameMan {
                         }
                     }
                 }
-            }
-            else
-            {
+            } else {
                 countFlag = false; //空白の場合は終了
             }
         }
@@ -590,8 +564,7 @@ class GameMan {
                     {
                         if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
-                        } else
-                        {
+                        } else {
                             for (i in 0..count){
                                 tm.putStone(x, y+i, Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
@@ -599,9 +572,7 @@ class GameMan {
                         }
                     }
                 }
-            }
-            else
-            {
+            } else {
                 countFlag = false; //空白の場合は終了
             }
         }
@@ -624,8 +595,7 @@ class GameMan {
                     {
                         if (count == 1) {
                             countFlag = false; //隣に自分の石がある場合がある場合強制終了
-                        } else
-                        {
+                        } else {
                             for (i in 0..count){
                                 tm.putStone(x-i, y+i, Turnstone)
                                 countFlag = false // 裏返したらチェックを抜ける
@@ -633,9 +603,7 @@ class GameMan {
                         }
                     }
                 }
-            }
-            else
-            {
+            } else {
                 countFlag = false; //空白の場合は終了
             }
         }
