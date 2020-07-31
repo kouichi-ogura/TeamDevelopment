@@ -360,7 +360,7 @@ class GameMan {
             Oppstone = Common.CELL_BLACK
         }
 
-        count= 1
+        count = 1
         countFlag = true
         //左に左方向にひっくり返すものがあれるか確認
         while(countFlag) {
@@ -391,7 +391,7 @@ class GameMan {
             }
         }
 
-        count= 1
+        count = 1
         countFlag = true
         //左上にひっくり返すものがあれるか確認
         while(countFlag) {
@@ -422,7 +422,7 @@ class GameMan {
             }
         }
 
-        count= 1
+        count = 1
         countFlag = true
         //上方向にひっくり返すものがあればひっくり返す
         while(countFlag) {
@@ -454,7 +454,7 @@ class GameMan {
         }
 
         //右上にひっくり返すものがあればひっくり返す
-        count= 1
+        count = 1
         countFlag = true
         while(countFlag) {
             if(x+count < Common.BOARD_SIZE &&y-count >= 0) {
@@ -485,7 +485,7 @@ class GameMan {
         }
 
         //右判定
-        count= 1
+        count = 1
         countFlag = true
         while(countFlag) {
             if(x+count < Common.BOARD_SIZE) {
@@ -516,7 +516,7 @@ class GameMan {
         }
 
         //右下判定
-        count= 1
+        count = 1
         countFlag = true
         while(countFlag) {
             if(x+count < Common.BOARD_SIZE && y+count < Common.BOARD_SIZE) {
@@ -547,7 +547,7 @@ class GameMan {
         }
 
         //下判定
-        count= 1
+        count = 1
         countFlag = true
         while(countFlag) {
             if(y+count < Common.BOARD_SIZE) {
@@ -578,7 +578,7 @@ class GameMan {
         }
 
         //左下判定
-        count= 1
+        count = 1
         countFlag = true
         while(countFlag) {
             if(x-count >= 0 &&y+count < Common.BOARD_SIZE) {

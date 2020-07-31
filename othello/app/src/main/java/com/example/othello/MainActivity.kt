@@ -276,7 +276,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // 初期化
-    fun initialize() {
+    private fun initialize() {
         gameManager.initBoard()
         drawScoreAndTurn()
     }
