@@ -169,8 +169,8 @@ class MainActivity : AppCompatActivity() {
         // State   : [CELL_EMPTY, CELL_BLACK, CELL_WHITE],
         // CellY/X : マス位置, 左上[0,0]～右下[7,7],
         private fun drawPiece(canvas: Canvas, state : Int, cellY : Int, cellX : Int){
-            var paintBlackPiece: Paint = Paint()
-            var paintWhitePiece: Paint = Paint()
+            val paintBlackPiece: Paint = Paint()
+            val paintWhitePiece: Paint = Paint()
 
             //色設定
             paintBlackPiece.color = Color.argb(255, 0, 0, 0)
@@ -192,11 +192,11 @@ class MainActivity : AppCompatActivity() {
             //盤面全体のサイズ,
             val boardSize : Float = endXPos - startXPos
             //1マスのサイズ,
-            var areaSize : Float = boardSize/squareNum
+            val areaSize : Float = boardSize/squareNum
             //端からの offset,
             val offset : Float = startXPos
             //コマの半径,
-            var r : Float = (areaSize/2)*0.7f
+            val r : Float = (areaSize/2)*0.7f
 
             when(state) {
                 //空マス
@@ -290,7 +290,7 @@ class MainActivity : AppCompatActivity() {
 
     //ポップアップメッセージ表示
     private fun popupMsg(title: String, msg : String){
-        val builder = AlertDialog.Builder(this)
+        AlertDialog.Builder(this)
             .setTitle(title)
             .setMessage(msg)
             .setPositiveButton("OK", null)
