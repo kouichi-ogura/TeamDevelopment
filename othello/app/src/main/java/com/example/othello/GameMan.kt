@@ -2,7 +2,6 @@ package com.example.othello
 
 class GameMan {
     var currentturn: Int = Common.CELL_BLACK // 手番保持用変数
-
     var x: Int = 1 // 取得したx座標
     var y: Int = 1 // 取得したy座標
 
@@ -12,10 +11,59 @@ class GameMan {
         tm.initialize()
     }
 
+    // 盤用配列を初期化(初期盤面)
+    fun initBoard() {
+        tm.initialize()
+        tm.initialPlacement()
+        currentturn = Common.CELL_BLACK
+    }
+
+    // UIからの呼び出しで石を置く
+    fun putStone(x: Int, y: Int): Int {
+
+        //置けるかチェック
+        if (!isPut(x, y, currentturn)) {
+            return Common.PUT_NG
+        }
+
+        // 置いた石を基準に挟める方向はひっくり返す
+        reverseStone(x, y, currentturn)
+
+        // 次の手番判定
+        if (!setNextTurn())
+        {
+            // どちらも置けなかったらゲーム終了
+            return Common.PUT_OK_END
+        }
+        return Common.PUT_OK_CONTINUE
+    }
+
+    // 盤面を返す
+    fun getTable(): Array<IntArray> {
+        return tm.board
+    }
+
+    // 白色石の数を返す
+    fun getWhiteStoneNum(): Int {
+        return tm.countStone(Common.CELL_WHITE)
+    }
+
+    // 黒色石の数を返す
+    fun getBlackStoneNum(): Int {
+        return tm.countStone(Common.CELL_BLACK)
+    }
+
+    // 次手番を返す
+    fun getNextTurn(): Int {
+        return currentturn
+    }
+
+    // すでに置いてあるかチェック
     private fun isAlreadyPut(x: Int, y: Int): Boolean {
         return tm.board[x][y] != Common.CELL_EMPTY
     }
 
+    // 手番交代
     private fun swapTurn()
     {
         // 石が置かれた場合手番を入れ替える
@@ -26,57 +74,23 @@ class GameMan {
         }
     }
 
-    public fun putStone(x: Int, y: Int): Int {
-
-        //置けるかチェック
-        if (!isPut(x, y, currentturn)) {
-            return Common.PUT_NG
-        }
-
-        // TODO:置けるならテーブル更新
-        reverseStone(x, y, currentturn)
-        tm.putStone(x, y, currentturn)
-
-        // 次の手番判定
-        // 相手が石が置けるかチェック
+    // 次の手番を設定
+    private fun setNextTurn():Boolean{
+        // 相手が置けるかチェック
         swapTurn()
         if ( ! IsAnyPut(currentturn)){
+            // 自分が置けるかチェック
             swapTurn()
             if ( ! IsAnyPut(currentturn)) {
-                // ゲーム終了かチェック
-                return Common.PUT_OK_END
+                // どちらも置けない
+                return false
             }
         }
-
-        return Common.PUT_OK_CONTINUE
+        return true
     }
 
-    public fun getTable(): Array<IntArray> {
-        return tm.board
-    }
-
-    public fun getWhiteStoneNum(): Int {
-        return tm.countStone(Common.CELL_WHITE)
-    }
-
-    public fun getBlackStoneNum(): Int {
-        return tm.countStone(Common.CELL_BLACK)
-    }
-
-    public fun getNextTurn(): Int {
-        return currentturn
-    }
-
-    // 盤用配列を初期化(初期盤面)
-    fun initBoard() {
-        tm.initialize()
-        tm.initialPlacement()
-        currentturn = Common.CELL_BLACK
-
-    }
-
-    // 次に相手が石が置ける場所があるか判定する
-    fun IsAnyPut(color: Int): Boolean {
+    // どこか石を置く場所があるかチェック
+    private fun IsAnyPut(color: Int): Boolean {
         for (i in 0..Common.BOARD_SIZE - 1) {
             for (k in 0..Common.BOARD_SIZE - 1) {
                 if (isPut(i, k, color)) {
@@ -87,7 +101,8 @@ class GameMan {
         return false
     }
 
-    fun isPut(x: Int, y: Int, color: Int): Boolean {
+    // 指定座標に石が置けるかチェック
+    private fun isPut(x: Int, y: Int, color: Int): Boolean {
         // すでに石が置かれているかチェック
         if (isAlreadyPut(x, y)) {
             return false
@@ -334,7 +349,7 @@ class GameMan {
         return false
     }
 
-    fun reverseStone(x: Int, y: Int, color: Int): Boolean {
+    private fun reverseStone(x: Int, y: Int, color: Int): Boolean {
         var count: Int = 0
 
         var Oppstone: Int = 0 // 現在の手番
