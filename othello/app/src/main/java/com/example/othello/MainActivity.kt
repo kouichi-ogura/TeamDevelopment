@@ -22,10 +22,10 @@ class MainActivity : AppCompatActivity() {
     private val squareNum : Int = Common.BOARD_SIZE
 
     //マスの状態 [CELL_ENPTY:空き、CELL_BLACK:黒、CELL_WHITE:白]
-    var territory = Array(squareNum) {IntArray(squareNum)}
+    private var territory = Array(squareNum) {IntArray(squareNum)}
 
     // 試合終了フラグ
-    var gameEnd : Int = 0
+    private var gameEnd : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -162,7 +162,7 @@ class MainActivity : AppCompatActivity() {
         //コマ描画
         // State   : [CELL_EMPTY, CELL_BLACK, CELL_WHITE],
         // CellY/X : マス位置, 左上[0,0]～右下[7,7],
-        fun drawPiece(canvas: Canvas, state : Int, cellY : Int, cellX : Int){
+        private fun drawPiece(canvas: Canvas, state : Int, cellY : Int, cellX : Int){
             var paintBlackPiece: Paint = Paint()
             var paintWhitePiece: Paint = Paint()
 
@@ -207,7 +207,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // 2点のXY座標を受け取り、線を描画
-        fun drawBorderLine(twoPoint: FloatArray, squareNum: Int, canvas: Canvas, paint: Paint) {
+        private fun drawBorderLine(twoPoint: FloatArray, squareNum: Int, canvas: Canvas, paint: Paint) {
             paint.strokeWidth = 2f
 
             // 横線を描画
@@ -221,7 +221,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // タップ位置を受け取り、座標に変換
-        fun changePosToCoodinate(twoPoint: FloatArray, squareNum: Int, touchX: Int, touchY: Int) {
+        private fun changePosToCoodinate(twoPoint: FloatArray, squareNum: Int, touchX: Int, touchY: Int) {
             // 引数のタップ位置からマージンを引き、マス幅で割ることで座標(XYともに0始まり)を計算
             // 例1 タップ位置が70の場合、 (70 - 10) / 80 = 0となり、X座標は0
             // 例2 タップ位置が115の場合、(115 - 10) / 80 = 1となり、X座標は1
@@ -233,18 +233,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     //スコア描画
-    fun drawScore(whiteScore : Int, blackScore:Int){
+    private fun drawScore(whiteScore : Int, blackScore:Int){
         findViewById<TextView>(R.id.whiteScoreView).text = "○：${whiteScore}個"
         findViewById<TextView>(R.id.blackScoreView).text = "●：${blackScore}個"
     }
 
     //メッセージ描画
-    fun drawMsg(msg : String){
+    private fun drawMsg(msg : String){
         findViewById<TextView>(R.id.msgView).text = msg
     }
 
     //手番描画
-    fun drawTurn(turn : Int){
+    private fun drawTurn(turn : Int){
         if(turn == Common.CELL_BLACK)
             drawMsg(" 黒の番です")
         else
@@ -269,7 +269,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // スコアと手番描画
-    fun drawScoreAndTurn() {
+    private fun drawScoreAndTurn() {
         territory = gameManager.getTable()
         drawScore(gameManager.getWhiteStoneNum(), gameManager.getBlackStoneNum())
         drawTurn(gameManager.getNextTurn())
